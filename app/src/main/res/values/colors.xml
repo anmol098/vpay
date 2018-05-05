@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E57373</color>
+    <color name="colorPrimaryDark">#125688</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
+    <color name="material_purple_500">#9C27B0</color>
+    <color name="material_purple_700">#7B1FA2</color>
+    <color name="material_yellow_a700">#FFD600</color>
+    <color name="material_majenta_a700">#00B8D4</color>
+    <color name="material_purple_a200">#E040FB</color>
+    <color name="material_purple_50">#F3E5F5</color>
+
+    <color name="div">#d5c5a4</color>
+    <color name="text">#32353e</color>
+    <color name="textred">#ca362c</color>
+    <color name="textwhite">#fff</color>
+</resources>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp">
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                tools:text="02 Apr 2018" />
+
+            <TextView
+                android:id="@+id/textViewAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/paytmOrderId"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="52dp"
+                android:layout_marginRight="52dp"
+                android:textAppearance="?android:textAppearanceLarge"
+                tools:text="$50000" />
+
+
+            <TextView
+                android:id="@+id/paytmOrderId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textViewDate"
+                android:textAppearance="?android:textAppearanceMedium"
+                tools:text="Paytm Order Id" />
+
+
+            <TextView
+                android:id="@+id/UTR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textViewAmount"
+                android:layout_alignRight="@+id/textViewAmount"
+                android:layout_below="@+id/paytmOrderId"
+                android:textAppearance="?android:textAppearanceMedium"
+                tools:text="UTR" />
+
+            <TextView
+                android:id="@+id/transactionId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/UTR"
+                android:textAllCaps="false"
+                android:textAppearance="?android:textAppearanceMedium"
+                tools:text="Transaction Id" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textViewAmount"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textAppearance="?android:textAppearanceMedium"
+                tools:text="3:48 PM" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

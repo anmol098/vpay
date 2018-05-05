@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "230534483047",
+    "firebase_url": "https://aapreneure.firebaseio.com",
+    "project_id": "aapreneure",
+    "storage_bucket": "aapreneure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230534483047:android:cfb07efbeb58292c",
+        "android_client_info": {
+          "package_name": "com.aapreneur.friendlyteach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230534483047-77buh06fojm1r2s5v5pbincrug9vmdd4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aapreneur.friendlyteach",
+            "certificate_hash": "0374346e95766319d446f0691f7b181598db1957"
+          }
+        },
+        {
+          "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTrZTi8ROPPbwPkj6HLIqxhEeJy_3DCbo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230534483047:android:548f05bbdab5f54b",
+        "android_client_info": {
+          "package_name": "com.aapreneur.vpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230534483047-19qodg7bgdphv3fne0hseloa17tt6phu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aapreneur.vpay",
+            "certificate_hash": "d27f780dec9c9e440c332c77f20fd29b944e0ea4"
+          }
+        },
+        {
+          "client_id": "230534483047-97bf9lpt8iluap7s5nkao8acu07qaijh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aapreneur.vpay",
+            "certificate_hash": "0374346e95766319d446f0691f7b181598db1957"
+          }
+        },
+        {
+          "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTrZTi8ROPPbwPkj6HLIqxhEeJy_3DCbo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

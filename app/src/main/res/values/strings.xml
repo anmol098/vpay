@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">V Pay</string>
+    <string name="title_activity_bank_details">Add Bank Details</string>
+    <string name="fui_progress_dialog_loading" translation_description="Loading text in dialog">Loading…</string>
+    <string name="fui_sign_in_default" translation_description="Button text to sign in">Sign in</string>
+    <string name="fui_general_error" translation_description="Toast text flashing general error">An error has occurred.</string>
+    <string name="fui_idp_name_google">Google</string>
+    <string name="fui_idp_name_facebook">Facebook</string>
+    <string name="fui_idp_name_twitter">Twitter</string>
+    <string name="fui_provider_name_email">Email</string>
+    <string name="fui_provider_name_phone">Phone</string>
+    <string name="fui_sign_in_with_google" translation_description="Sign in button text">Sign in with Google</string>
+    <string name="fui_sign_in_with_facebook" translation_description="Sign in button text">Sign in with Facebook</string>
+    <string name="fui_sign_in_with_twitter" translation_description="Sign in button text">Sign in with Twitter</string>
+    <string name="fui_sign_in_with_email" translation_description="Sign in button text">Sign in with email</string>
+    <string name="fui_sign_in_with_phone" translation_description="Sign in button text">Sign in with phone</string>
+    <string name="fui_next_default" translation_description="Button text to continue">Next</string>
+    <string name="fui_email_hint" translation_description="Hint in email input field">Email</string>
+    <string name="fui_phone_hint" translation_description="Hint for phone input field">Phone number</string>
+    <string name="fui_password_hint" translation_description="Hint for password input field">Password</string>
+    <string name="fui_required_field" translation_description="Inline error for required field">You can\'t leave this empty.</string>
+    <string name="fui_button_text_save" translation_description="Button text to save input form">Save</string>
+    <string name="fui_progress_dialog_signing_up" translation_description="Dialog text while waiting for server's signup response">Signing up…</string>
+    <string name="fui_create_account_preamble_tos_and_pp" translation_description="Text shown when creating an account with both terms of service and privacy policy.">By tapping %1$s you are indicating that you agree to the %2$s and the %3$s.</string>
+    <string name="fui_create_account_preamble_tos_only" translation_description="Text shown when creating an account with only terms of service">By tapping %1$s you are indicating that you agree to the %2$s.</string>
+    <string name="fui_create_account_preamble_pp_only" translation_description="Text shown when creating an account with only privacy policy">By tapping %1$s you are indicating that you agree to the %2$s.</string>
+    <string name="fui_terms_of_service" translation_description="Link text to web url containing the app's terms of service">Terms of Service</string>
+    <string name="fui_privacy_policy" translation_description="Link text to web url containing the app's privacy policy">Privacy Policy</string>
+    <string name="fui_welcome_back_idp_header" translation_description="Inline subtitle to users whose signup was interrupted since an existing account was detected">You already have an account</string>
+    <string name="fui_welcome_back_email_header" translation_description="Message for returning users">Welcome back!</string>
+    <string name="fui_welcome_back_idp_prompt" translation_description="Message to users that need to signin using existing IDP accounts">You\'ve already used %1$s. Sign in with %2$s to continue.</string>
+    <string name="fui_welcome_back_password_prompt_body" translation_description="Message to users that need to signin using existing email accounts">You\'ve already used %1$s to sign in. Enter your password for that account.</string>
+    <string name="fui_progress_dialog_signing_in" translation_description="Progress dialog text">Signing in…</string>
+    <string name="fui_accessibility_logo" translation_description="Content description for app logo">App logo</string>
+    <string name="fui_signed_in_with_specific_account" translation_description="Post signin message showing method of authentication">Signed in as %1$s</string>
+    <string name="fui_verify_phone_number_title" translation_description="Phone number entry form title">Enter your phone number</string>
+    <string name="fui_invalid_phone_number" translation_description="Inline error when phone number entered is invalid">Enter a valid phone number</string>
+    <string name="fui_enter_confirmation_code" translation_description="Phone number verification code entry form title">Enter the 6-digit code that we sent to</string>
+    <string name="fui_resend_code_in" translation_description="Countdown timer text that the user needs to wait for before attempting to resend verification sms">Resend code in 0:%02d</string>
+    <string name="fui_verify_your_phone_title" translation_description="Button text to complete phone number verification">Verify your phone number</string>
+    <string name="fui_verifying" translation_description="Progress dialog text while phone number is being verified">Verifying…</string>
+    <string name="fui_retrieving_sms" translation_description="Progress dialog text when sms is being retrieved before auto-submit">Retrieving SMS…</string>
+    <string name="fui_incorrect_code_dialog_body" translation_description="Inline error when incorrect sms verification code is being used to verify">Wrong code. Try again.</string>
+    <string name="fui_incorrect_code_dialog_positive_button_text" translation_description="Text to dismiss error alert dialog">OK</string>
+    <string name="fui_error_too_many_attempts" translation_description="Error message when the phone number has been used too many times">This phone number has been used too many times</string>
+    <string name="fui_error_quota_exceeded" translation_description="Error message when the Firebase project's quota has been exceeded.">There was a problem verifying your phone number</string>
+    <string name="fui_error_session_expired" translation_description="Error message when SMS confirmation code has expired.">This code is no longer valid</string>
+    <string name="fui_sign_in_with_phone_number" translation_description="Label for phone number input form">Sign in with phone number</string>
+    <string name="fui_done" translation_description="Progress dialog success transition once sms is sent">Done</string>
+    <string name="fui_verified" translation_description="Progress dialog success transition when phone number was verified">Verified.</string>
+    <string name="fui_code_sent" translation_description="Progress dialog success transition once sms is sent">Code sent.</string>
+    <string name="fui_resending" translation_description="Progress dialog text when user clicks on resend sms">Resending…</string>
+    <string name="fui_resend_code" translation_description="Link text to resend verification sms">Resend code</string>
+    <string name="fui_verify_phone_number" translation_description="Button text to submit confirmation code and complete phone verification">Verify Phone Number</string>
+    <string name="fui_continue_phone_login" translation_description="Button text to submit phone number and send sms">Continue</string>
+    <string name="fui_sms_terms_of_service" translation_description="Fine print warning displayed below Verify Phone Number button">By tapping %1$s, an SMS may be sent. Message &amp; data rates may apply.</string>
+    <string name="title_activity_checkout">Checkout</string>
+    <string name="drawer_item_embedded_drawer">Embedded Drawer</string>
+    <string name="drawer_item_mini_drawer">MiniDrawer</string>
+    <string name="drawer_item_compact_Form">Form</string>
+
+
+    <!-- Sample menu -->
+    <string name="action_settings">Settings</string>
+
+    <!-- Drawer Items -->
+    <string name="drawer_item_persistent_compact_header">PersistentHeader Drawer</string>
+    <string name="drawer_item_persistent_compact_header_desc">Smaller persistent account header</string>
+
+    <string name="drawer_item_compact_header_desc">Smaller account header</string>
+    <string name="drawer_item_action_bar_drawer">Add Ref No.</string>
+    <string name="drawer_item_multi_drawer">Transaction</string>
+    <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatus Drawer</string>
+    <string name="drawer_item_non_translucent_status_drawer_desc">Drawer below statusBar</string>
+    <string name="drawer_item_advanced_drawer">Advanced Drawer</string>
+    <string name="drawer_item_advanced_drawer_desc">More advanced drawer features</string>
+    <string name="drawer_item_embedded_drawer_desc">Embed the drawer anywhere</string>
+
+    <string name="drawer_item_mini_drawer_desc">Always visible MiniDrawer</string>
+    <string name="drawer_item_fullscreen_drawer">FullScreen Drawer</string>
+    <string name="drawer_item_fullscreen_drawer_desc">Drawer in FullScreen activity</string>
+    <string name="drawer_item_custom_container_drawer">CustomContainer Drawer</string>
+    <string name="drawer_item_custom_container_drawer_desc">Drawer in different view hirachy</string>
+    <string name="drawer_item_menu_drawer">Menu Drawer</string>
+    <string name="drawer_item_menu_drawer_desc">Drawer from menu.xml</string>
+    <string name="drawer_item_fragment_drawer">Fragment Drawer</string>
+    <string name="drawer_item_fragment_drawer_desc">Use drawer within fragments</string>
+    <string name="drawer_item_collapsing_toolbar_drawer">CollapsingToolbar Drawer</string>
+    <string name="drawer_item_collapsing_toolbar_drawer_desc">Uses a CollapsingToolbarLayout</string>
+    <string name="drawer_item_crossfade_drawer_layout_drawer">CrossfadeDrawerLayout</string>
+    <string name="drawer_item_crossfade_drawer_layout_drawer_desc">2-Step Drawer behavior</string>
+
+    <string name="drawer_item_menu_drawer_item">Menu Drawer Item</string>
+    <string name="drawer_item_menu_drawer_item_desc">Sample menu item with overflow button</string>
+
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_free_play">Free Play</string>
+    <string name="drawer_item_custom">Custom</string>
+    <string name="drawer_item_section_header">Section Header</string>
+    <string name="drawer_item_settings">Settings</string>
+    <string name="drawer_item_help">Help</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="msg_subscribed">Subscribed to news topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
+</resources>
+

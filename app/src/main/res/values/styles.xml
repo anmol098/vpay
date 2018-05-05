@@ -1,0 +1,57 @@
+<resources>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="FirebaseLoginTheme" parent="FirebaseUI">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+
+        <item name="colorPrimary">@color/material_purple_500</item>
+        <item name="colorPrimaryDark">@color/material_purple_700</item>
+        <item name="colorAccent">@color/material_yellow_a700</item>
+
+        <item name="colorControlNormal">@color/material_purple_500</item>
+        <item name="colorControlActivated">@color/material_majenta_a700</item>
+        <item name="colorControlHighlight">@color/material_purple_a200</item>
+        <item name="android:windowBackground">@color/material_purple_50</item>
+        <!-- <item name="android:windowBackground">@drawable/login</item>-->
+    </style>
+
+    <style name="MaterialSwitch">
+        <item name="sw_trackSize">30dp</item>
+        <item name="sw_trackCap">round</item>
+        <item name="sw_thumbRadius">16dp</item>
+        <item name="sw_thumbElevation">2dp</item>
+        <item name="sw_animDuration">@android:integer/config_shortAnimTime</item>
+        <item name="sw_interpolator">@android:anim/decelerate_interpolator</item>
+    </style>
+
+
+
+    <style name="MyMaterialTheme.Body1">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="MyMaterialTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
