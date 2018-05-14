@@ -84,6 +84,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="#4343"
+                        android:singleLine="true"
+                        android:ellipsize="start"
                         android:textColor="@color/textred"
                         android:textSize="21dp"
                         android:layout_marginLeft="6dp"

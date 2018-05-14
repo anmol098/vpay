@@ -64,6 +64,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 
+
 public class Main2Activity extends AppCompatActivity {
 
     private static final int PROFILE_SETTING = 1;
@@ -88,7 +89,10 @@ public class Main2Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        String number = user.getPhoneNumber();
+
+        if(number!= null)
+            FirebaseMessaging.getInstance().subscribeToTopic(number.substring(1));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -102,15 +106,6 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-        // If a notification message is tapped, any data accompanying the notification
-        // message is available in the intent extras. In this sample the launcher
-        // intent is fired when the notification is tapped, so any accompanying data would
-        // be handled here. If you want a different intent fired, set the click_action
-        // field of the notification message to the desired intent. The launcher intent
-        // is used when no click_action is specified.
-        //
-        // Handle possible data accompanying notification message.
-        // [START handle_data_extras]
         if (getIntent().getExtras() != null) {
             for (String key : getIntent().getExtras().keySet()) {
                 Object value = getIntent().getExtras().get(key);
@@ -323,7 +318,7 @@ public class Main2Activity extends AppCompatActivity {
         if (fragment != null) {
             if (fragment == mCurrentFragment) return;
 
-            mFragmentManager.beginTransaction().show(fragment).commit();
+            mFragmentManager.beginTransaction().show(fragment).detach(fragment).attach(fragment).commit();
         }
         else {
             fragment = Fragment.instantiate(this, (String) item.getTag());
@@ -365,12 +360,9 @@ public class Main2Activity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         if (SystemUtils.getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT) {
             inflater.inflate(R.menu.menu_main, menu);
-            menu.findItem(R.id.menu_1).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_sort).color(Color.WHITE).actionBar());
+            //menu.findItem(R.id.menu_1).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_sort).color(Color.WHITE).actionBar());
         }
-       /* else{
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-            return true;
-        }*/
+
         return true;
     }
 
@@ -388,17 +380,17 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle the click on the back arrow click
         switch (item.getItemId()) {
-            case R.id.menu_1:
+            /*case R.id.menu_1:
                 crossFader.crossFade();
-                return true;
+                return true;*/
             case R.id.action_sign_out:
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, PhoneNumberAuthentication.class));
                 return true;
-            case android.R.id.home:
+            /*case R.id.refresh:
                 onBackPressed();
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -6,6 +6,7 @@ package com.aapreneur.vpay.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,12 +41,13 @@ import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.Resources.MyDataModel;
 
 
-public class bank extends Fragment{
+public class bank extends Fragment {
 
     private ListView listView;
     private LinearLayout linearLayout;
     private ArrayList <MyDataModel> list;
     private MyArrayAdapter adapter;
+
 
     public bank() {
         // Required empty public constructor
@@ -65,7 +67,6 @@ public class bank extends Fragment{
         listView = (ListView) view.findViewById(R.id.listView);
         linearLayout = (LinearLayout)view.findViewById(R.id.view_empty);
         listView.setAdapter(adapter);
-
         new ReadData1().execute();
 
         return view;

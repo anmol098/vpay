@@ -8,10 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aapreneur.vpay.PhoneNumberAuthentication;
 import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.Resources.Configuration;
 import com.aapreneur.vpay.Resources.MyArrayAdapter;
@@ -35,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 
 
 public class add_ref_no extends Fragment {
@@ -69,40 +77,40 @@ public class add_ref_no extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-           public void onItemClick (AdapterView<?> parent,
-                              View view,
-                              int position,
-                              long id) {
+            public void onItemClick (AdapterView<?> parent,
+                                     View view,
+                                     int position,
+                                     long id) {
                 orderId = list.get(position).getOrderId();
                 final String test = list.get(position).getPaytmId();
 
-                    Log.i("myApp", "txnAmount" + orderId);
-                    final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    final EditText input = new EditText(getActivity());
-                    input.setHint("Add Paytm Order Id");
-                    alert.setTitle("Your VPay Order ID is " + orderId);
-                    alert.setView(input);
-                    LinearLayout layout = new LinearLayout(getActivity());
-                    layout.setOrientation(LinearLayout.VERTICAL);
-                    layout.addView(input);
+                Log.i("myApp", "txnAmount" + orderId);
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                final EditText input = new EditText(getActivity());
+                input.setHint("Add Paytm Order Id");
+                alert.setTitle("Your VPay Order ID is " + orderId);
+                alert.setView(input);
+                LinearLayout layout = new LinearLayout(getActivity());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.addView(input);
 
-                    alert.setView(layout);
-                    alert.setPositiveButton("Submit",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int which) {
-                                    if (test.equals("")) {
-                                        paytmId = input.getText().toString().trim();
-                                        new UpdateDataActivity().execute();
-                                    }
-                                    else{
-                                        Toast.makeText(getActivity(), "Paytm Order Id Already updated.\n To Update Order Id Please Contact Our Costumer Care", Toast.LENGTH_LONG).show();
-
-                                    }
+                alert.setView(layout);
+                alert.setPositiveButton("Submit",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                if (test.equals("")) {
+                                    paytmId = input.getText().toString().trim();
+                                    new UpdateDataActivity().execute();
                                 }
-                            });
-                    alert.show();
-                }
+                                else{
+                                    Toast.makeText(getActivity(), "Paytm Order Id Already updated.\n To Update Order Id Please Contact Our Costumer Care", Toast.LENGTH_LONG).show();
+
+                                }
+                            }
+                        });
+                alert.show();
+            }
 
         });
         return view;

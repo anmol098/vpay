@@ -140,6 +140,7 @@ public class form extends Fragment{
             dialog.setTitle("Calculating Your Amount...");
             dialog.setMessage("Please Wait");
             dialog.show();
+            dialog.setCancelable(false);
         }
         @Nullable
         @Override
@@ -188,7 +189,7 @@ public class form extends Fragment{
                         builder = new AlertDialog.Builder(getActivity());
                     }
                     builder.setTitle("Aw, Snap!!")
-                            .setMessage("Servers Unreachable")
+                            .setMessage("Servers Unreachable Try After Sometime")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     android.os.Process.killProcess(android.os.Process.myPid());
@@ -197,7 +198,9 @@ public class form extends Fragment{
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                            .show()
+                            .setCancelable(false);
+
 
                 } else {
                     try {
@@ -229,7 +232,8 @@ public class form extends Fragment{
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                            .show()
+                            .setCancelable(false);
             }
         }
     }
@@ -247,6 +251,7 @@ public class form extends Fragment{
             dialog.setTitle("Fetching Your Account Details");
             dialog.setMessage("Please Wait");
             dialog.show();
+            dialog.setCancelable(false);
         }
 
 
@@ -295,7 +300,8 @@ public class form extends Fragment{
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
+                            .show()
+                    .setCancelable(false);
 
 
                 }
@@ -328,7 +334,8 @@ public class form extends Fragment{
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                        .show()
+                .setCancelable(false);
 
             }
             else {

@@ -37,7 +37,8 @@ import java.util.TimeZone;
 public class checkout extends AppCompatActivity {
 
     TextView account,ifsc;
-    TextView AmtPayback,fees,txnAmount;
+    TextView AmtPayback,fees,txnAmount,ordernumber,TVnumber;
+    TextView date;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
 
@@ -78,6 +79,17 @@ public class checkout extends AppCompatActivity {
 
         AmtPayback = (TextView)findViewById(R.id.payback);
         AmtPayback.setText(payback);
+
+        date = (TextView)findViewById(R.id.date);
+        date.setText(getCurrentDate());
+
+        ordernumber = (TextView)findViewById(R.id.ordernumber);
+        ordernumber.setText(getOrderId());
+
+        String phno = user.getPhoneNumber().substring(3);
+
+        TVnumber = (TextView)findViewById(R.id.number);
+        TVnumber.setText(phno);
     }
     public void goToSo (View view) {
         Submit();

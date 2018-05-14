@@ -25,7 +25,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id"/>
-
+        <!-- [END fcm_default_channel] -->
         <activity android:name=".PhoneNumberAuthentication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +45,7 @@
         <activity android:name=".Main2Activity" />
 
         <service
-            android:name=".MyFirebaseMessagingService">
+            android:name=".app.utils.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
@@ -53,13 +53,13 @@
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
         <service
-            android:name=".MyFirebaseInstanceIDService">
+            android:name=".app.utils.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
         <!-- [END firebase_iid_service] -->
-        <service android:name=".MyJobService"
+        <service android:name=".app.utils.MyJobService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
