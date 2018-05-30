@@ -29,14 +29,17 @@
         layout="@layout/content_checkout" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PAY Now"
+        android:layout_width="155dp"
+        android:layout_height="45dp"
+        android:text="PAY NOW"
         android:clickable="true"
+        android:textColor="#fb397d"
+        android:textSize="25sp"
         android:autoLink="web"
         android:cursorVisible="true"
         android:id="@+id/button_so"
         android:linksClickable="true"
+        android:background="@drawable/buttonshape_checkout"
         android:onClick="goToSo"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|center" />

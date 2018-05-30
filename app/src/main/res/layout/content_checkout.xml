@@ -231,7 +231,7 @@
                             android:layout_height="wrap_content"
                             android:maxLines="1"
                             android:text="IFSC"
-                            android:textColor="@color/textred"
+                            android:textColor="@color/text"
                             android:textSize="17dp"
                             />
 

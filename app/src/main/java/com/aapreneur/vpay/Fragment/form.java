@@ -215,7 +215,7 @@ public class form extends Fragment{
                     Toast.makeText(getContext(), "Your Transaction fees is " + (percent * 100) + "%", Toast.LENGTH_LONG).show();
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+                        builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialogTheme);
                     } else {
                         builder = new AlertDialog.Builder(getActivity());
                     }

@@ -4,6 +4,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -180,8 +181,8 @@ public class Main2Activity extends AppCompatActivity {
                                 .withTag(form.class.getName()),
                         new PrimaryDrawerItem()
                                 .withName("Add Ref No.")
-                                .withIcon(GoogleMaterial.Icon.gmd_receipt).withBadge("5")
-                                .withBadgeStyle(new BadgeStyle(Color.RED, Color.RED))
+                                .withIcon(GoogleMaterial.Icon.gmd_receipt).withBadge("100")
+                                .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.colorPrimary))
                                 .withIdentifier(2)
                                 .withTag(add_ref_no.class.getName()),
                         new PrimaryDrawerItem()

@@ -42,7 +42,8 @@
             android:name=".checkout"
             android:label="@string/title_activity_checkout"
             android:theme="@style/MyMaterialTheme.NoActionBar" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".Main2Activity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar"/>
 
         <service
             android:name=".app.utils.MyFirebaseMessagingService">

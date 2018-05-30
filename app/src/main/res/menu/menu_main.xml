@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.aapreneur.vpay.Main2Activity">
     <item
-        android:id="@+id/refresh"
-        android:icon="@drawable/ic_action_refresh"
-        android:orderInCategory="1"
-        android:title="Refresh"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/action_sign_out"
         android:orderInCategory="100"
         android:title="Sign Out"

@@ -41,6 +41,17 @@
 
 
 
+    <style name="CustomDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@color/textwhite</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/background_dialog</item>
+    </style>
+
+
+
     <style name="MyMaterialTheme.Body1">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">14sp</item>

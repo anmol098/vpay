@@ -11,10 +11,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/md_white_1000"
+        android:background="@color/colorPrimary"
         android:elevation="4dp"
-        tools:ignore="UnusedAttribute" />
-
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     <FrameLayout
         android:id="@+id/drawer_container"
         android:layout_width="match_parent"
