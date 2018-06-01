@@ -13,6 +13,6 @@
             android:bottomLeftRadius="0dp"
             android:bottomRightRadius="24dp"
             />
-        <solid android:color="#fb397d" />
+        <solid android:color="@color/textwhite" />
     </shape>
 </inset>

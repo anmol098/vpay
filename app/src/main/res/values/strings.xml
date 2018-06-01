@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">V Pay</string>
+    <string name="app_desc">VPay Android App was not posiible without these awesome open source libraries. We are grateful to the open source community</string>
     <string name="title_activity_bank_details">Add Bank Details</string>
     <string name="fui_progress_dialog_loading" translation_description="Loading text in dialog">Loading…</string>
     <string name="fui_sign_in_default" translation_description="Button text to sign in">Sign in</string>
@@ -116,5 +117,7 @@
         It should describe the category of notifications that will be sent through this channel
      -->
     <string name="default_notification_channel_name" translatable="true">News</string>
+    <string name="title_activity_privacy">Privacy Policy</string>
+    <string name="title_activity_faq">FAQ</string>
 </resources>
 

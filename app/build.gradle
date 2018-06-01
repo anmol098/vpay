@@ -62,6 +62,8 @@ dependencies {
     implementation 'com.mikepenz:octicons-typeface:3.2.0.4@aar'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
+    implementation 'com.google.firebase:firebase-config:12.0.1'
+
     implementation 'com.android.support:support-v4:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

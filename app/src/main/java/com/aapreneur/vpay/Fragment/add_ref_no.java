@@ -85,7 +85,7 @@ public class add_ref_no extends Fragment {
                 final String test = list.get(position).getPaytmId();
 
                 Log.i("myApp", "txnAmount" + orderId);
-                final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(),R.style.CustomDialogTheme);
                 final EditText input = new EditText(getActivity());
                 input.setHint("Add Paytm Order Id");
                 alert.setTitle("Your VPay Order ID is " + orderId);
@@ -167,6 +167,7 @@ public class add_ref_no extends Fragment {
                                 String date = innerObject.getString("date");
                                 String time = innerObject.getString("time");
                                 String paytmId = innerObject.getString("paytmId");
+                                String mode = innerObject.getString("mode");
 
 
                                 model.setAmount(Amount);
@@ -174,6 +175,8 @@ public class add_ref_no extends Fragment {
                                 model.setTime(time);
                                 model.setOrderId(orderId);
                                 model.setPaytmId(paytmId);
+                                model.setMode(mode);
+
                                 list.add(model);
                             }
                         }

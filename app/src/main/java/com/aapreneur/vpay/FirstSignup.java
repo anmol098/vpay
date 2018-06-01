@@ -123,7 +123,6 @@ public class FirstSignup extends AppCompatActivity {
                 params.put(Configuration.KEY_MOBILE,userMobile);
                 params.put(Configuration.KEY_IMAGE,userImage);
                 params.put(Configuration.KEY_RESULT,"1");
-                params.put(Configuration.KEY_FEE,"0.015");
                 return params;
             }
 

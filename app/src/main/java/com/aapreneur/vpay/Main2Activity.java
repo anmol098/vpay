@@ -60,6 +60,8 @@ import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.octicons_typeface_library.Octicons;
@@ -242,15 +244,25 @@ public class Main2Activity extends AppCompatActivity {
                         if (drawerItem != null && drawerItem instanceof PrimaryDrawerItem) {
                             switchMenu((PrimaryDrawerItem) drawerItem);
                         }
-                        /*if (drawerItem != null) {
+                        if (drawerItem != null) {
                             Intent intent = null;
-                            if (drawerItem.getIdentifier() == 1) {
-                                intent = new Intent(DrawerActivity.this, CompactHeaderDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 2) {
-                                intent = new Intent(DrawerActivity.this, ActionBarActivity.class);
-                            } else if (drawerItem.getIdentifier() == 3) {
-                                intent = new Intent(DrawerActivity.this, MultiDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 4) {
+                            if (drawerItem.getIdentifier() == 8) {
+                                intent = new Intent(Main2Activity.this, privacy.class);
+                            }
+                        else if (drawerItem.getIdentifier() == 9) {
+                                new LibsBuilder()
+                                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                                        .withActivityTitle("Open Source Credit")
+                                        .withAboutIconShown(true)
+                                        .withAboutAppName(getString(R.string.app_name))
+                                        .withAboutVersionShown(true)
+                                        .withAboutDescription(getString(R.string.app_desc))
+                                        .withLicenseDialog(true)
+                                        .withLicenseShown(true)
+                                        .start(Main2Activity.this);
+                            } else if (drawerItem.getIdentifier() == 7) {
+                                intent = new Intent(Main2Activity.this, faq.class);
+                            }/* else if (drawerItem.getIdentifier() == 4) {
                                 intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
                                 intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
@@ -277,11 +289,11 @@ public class Main2Activity extends AppCompatActivity {
                                         .withFields(R.string.class.getFields())
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .intent(DrawerActivity.this);
-                            }
+                            }*/
                             if (intent != null) {
-                                DrawerActivity.this.startActivity(intent);
+                                Main2Activity.this.startActivity(intent);
                             }
-                        }*/
+                        }
                         return false;
                     }
                 })

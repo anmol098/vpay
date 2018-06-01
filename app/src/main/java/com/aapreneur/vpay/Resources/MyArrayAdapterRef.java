@@ -54,6 +54,12 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         vh.textViewTime.setText(item.getTime());
         vh.textViewAmount.setText(item.getAmount());
 
+        if(item.getMode().equals("credit")){
+            vh.imageViewMode.setImageResource(R.drawable.ic_if_payu);
+        }
+        else if(item.getMode().equals("paytm")){
+            vh.imageViewMode.setImageResource(R.drawable.ic_if_paytm);
+        }
 
 
         return vh.rootView;
@@ -66,14 +72,16 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         public final TextView textViewDate;
         public final TextView textViewAmount;
         public final TextView textViewTime;
+        public final ImageView imageViewMode;
 
 
-        private ViewHolder(RelativeLayout rootView, TextView textViewDate,TextView textViewTime,TextView textViewAmount) {
+        private ViewHolder(RelativeLayout rootView, TextView textViewDate,TextView textViewTime,TextView textViewAmount,ImageView imageViewMode) {
             this.rootView = rootView;
 
             this.textViewDate = textViewDate;
             this.textViewAmount = textViewAmount;
             this.textViewTime = textViewTime;
+            this.imageViewMode = imageViewMode;
 
         }
 
@@ -81,7 +89,8 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
             TextView textViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
             TextView textViewTime = (TextView) rootView.findViewById(R.id.time);
             TextView textViewAmount = (TextView) rootView.findViewById(R.id.textViewAmount);
-            return new MyArrayAdapterRef.ViewHolder(rootView,textViewDate, textViewTime,textViewAmount);
+            ImageView imageViewMode = (ImageView) rootView.findViewById(R.id.mode);
+            return new MyArrayAdapterRef.ViewHolder(rootView,textViewDate, textViewTime,textViewAmount,imageViewMode);
         }
     }
 }

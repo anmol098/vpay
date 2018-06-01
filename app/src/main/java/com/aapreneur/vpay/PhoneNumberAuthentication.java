@@ -45,8 +45,8 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
                                             new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
                                     ))
                             .setIsSmartLockEnabled(false)
-                            .setTosUrl("https://superapp.example.com/terms-of-service.html")
-                            .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                            .setTosUrl("http://www.aapreneur.com/vpay/terms.html")
+                            .setPrivacyPolicyUrl("http://www.aapreneur.com/vpay/policy.html")
                             .build(),
 
                     RC_SIGN_IN);

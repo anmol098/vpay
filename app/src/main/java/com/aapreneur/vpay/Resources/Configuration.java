@@ -34,7 +34,6 @@ public class Configuration {
     public static final String KEY_MOBILE = "uMobile";
     public static final String KEY_IMAGE = "uImage";
     public static final String KEY_RESULT = "uResult";
-    public static final String KEY_FEE = "uFee";
     public static final String KEY_DATE = "date";
     public static final String KEY_TIME = "time";
     public static final String KEY_TXN_AMOUNT = "txnAmount";
@@ -45,6 +44,7 @@ public class Configuration {
     public static final String KEY_ACC_IFSC = "aIfsc";
     public static final String KEY_ACC_STATUS = "aStatus";
     public static final String KEY_ORDER_ID = "uOrderid";
+    public static final String KEY_MODE = "mode";
 
 
 

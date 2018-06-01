@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +41,13 @@ import java.util.Locale;
 
 public class form extends Fragment{
 
-    public String fee;
+    public String fee,creditfee,mode;
     public EditText amount;
     public double AmtPayback,fees,txnAmount;
     public Button buttonProceed;
     public double percent ;
     TextInputLayout til;
+    CheckBox paytmCheck,creditCheck;
 
     Locale INR = new Locale("en", "IN");
     NumberFormat inrFormat = NumberFormat.getCurrencyInstance(INR);
@@ -68,6 +70,21 @@ public class form extends Fragment{
         amount = (EditText) view.findViewById(R.id.amount_1);
         buttonProceed = (Button) view.findViewById(R.id.proceed);
         til = (TextInputLayout) view.findViewById(R.id.amount);
+        paytmCheck = (CheckBox)view.findViewById(R.id.paytmCheck);
+        creditCheck = (CheckBox)view.findViewById(R.id.creditCheck);
+
+        paytmCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                creditCheck.setChecked(false);
+            }
+        });
+        creditCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paytmCheck.setChecked(false);
+            }
+        });
 
         buttonProceed.setOnClickListener(new View.OnClickListener()
         {
@@ -84,17 +101,17 @@ public class form extends Fragment{
                 else {
                     til.setError(null);
                     if (isInternetOn()) {
+                        if(paytmCheck.isChecked()||creditCheck.isChecked()) {
 
-                        new ReadData1().execute();
-                        Snackbar snackbar = Snackbar
-                                .make(view, "By clicking Ok You Accept to our Terms and Services", Snackbar.LENGTH_SHORT);
-                        /*.setAction("", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
+                            new ReadData1().execute();
+                            Snackbar snackbar = Snackbar
+                                    .make(view, "By clicking Ok You Accept to our Terms and Services", Snackbar.LENGTH_SHORT);
+                            snackbar.show();
+                        }
+                        else{
+                            Toast.makeText(getActivity(), "Please Select any payment method", Toast.LENGTH_LONG).show();
 
-                            }
-                        });*/
-                        snackbar.show();
+                        }
                     } else {
                         Toast.makeText(getActivity(), " Not Connected ", Toast.LENGTH_LONG).show();
 
@@ -161,6 +178,7 @@ public class form extends Fragment{
 
                                 String id = innerObject.getString("id");
                                 fee = innerObject.getString("fee");
+                                creditfee = innerObject.getString("creditfee");
                                 Log.i("myApp","message"+fee );
                             }
                         }
@@ -203,6 +221,17 @@ public class form extends Fragment{
 
 
                 } else {
+                    if(creditCheck.isChecked())
+                    {
+                        fee = creditfee;
+                        paytmCheck.setChecked(false);
+                        mode = "credit";
+                    }
+                    else if(paytmCheck.isChecked())
+                    {
+                        creditCheck.setChecked(false);
+                        mode = "paytm";
+                    }
                     try {
                         txnAmount = Integer.parseInt(amt);
                         percent = Double.parseDouble(fee);
@@ -212,7 +241,7 @@ public class form extends Fragment{
                     }
                     fees = txnAmount * percent;
                     AmtPayback = txnAmount - fees;
-                    Toast.makeText(getContext(), "Your Transaction fees is " + (percent * 100) + "%", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Your Transaction fees for this Transaction is" + (percent * 100) + "%", Toast.LENGTH_LONG).show();
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialogTheme);
@@ -346,6 +375,7 @@ public class form extends Fragment{
                 intent.putExtra("payback", AmtPayback);
                 intent.putExtra("amount", txnAmount);
                 intent.putExtra("fees", fees);
+                intent.putExtra("mode",mode);
                 startActivity(intent);
             }
         }

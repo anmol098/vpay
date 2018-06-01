@@ -46,6 +46,17 @@
                 android:textAppearance="?android:textAppearanceLarge"
                 tools:text="$50000" />
 
+            <ImageView
+                android:id="@+id/mode"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/textViewDate"
+                android:layout_marginEnd="41dp"
+                android:layout_marginRight="41dp"
+                android:src="@drawable/ic_if_paytm" />
+
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"

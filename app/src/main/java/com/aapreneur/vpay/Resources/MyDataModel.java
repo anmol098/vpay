@@ -13,6 +13,7 @@ public class MyDataModel {
     private String amount;
     private String orderId;
     private String paytmId;
+    private String mode;
 
 
     public String getDate() {
@@ -59,6 +60,13 @@ public class MyDataModel {
     }
     public void setPaytmId(String paytmId){
         this.paytmId=paytmId;
+    }
+
+    public String getMode(){
+        return mode;
+    }
+    public void setMode(String mode){
+        this.mode=mode;
     }
 
 }
