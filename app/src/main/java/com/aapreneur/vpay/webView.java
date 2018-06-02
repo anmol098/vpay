@@ -11,8 +11,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-public class faq extends AppCompatActivity {
-    private String postUrl ="http://www.aapreneur.com/vpay/faq_android.html";
+public class webView extends AppCompatActivity {
+
+    private String postUrl ="http://www.aapreneur.com/vpay/policy.html";
     private WebView webView;
     private ProgressBar spinner;
     String ShowOrHideWebViewInitialUse = "show";

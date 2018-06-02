@@ -343,7 +343,7 @@ public class form extends Fragment{
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialog.dismiss();
-           if(name.equals("null")){
+           if(name.equals("null")||number.equals("")||ifsc.equals("")){
 
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

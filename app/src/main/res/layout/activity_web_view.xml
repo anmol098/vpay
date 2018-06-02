@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aapreneur.vpay.bank_details">
+    tools:context=".webView">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,6 +20,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_bank_details" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_web_view" />
 
 </android.support.design.widget.CoordinatorLayout>

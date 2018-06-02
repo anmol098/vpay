@@ -62,10 +62,10 @@
                 android:id="@+id/amount_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_layout"
                 android:hint="Amount (₹)"
                 android:inputType="number"
                 android:paddingTop="10dp"
+                android:background="@drawable/edittext_layout"
                 android:textColor="@color/colorPrimary"
                 android:textColorHighlight="@color/colorPrimary" />
         </android.support.design.widget.TextInputLayout>
@@ -76,8 +76,8 @@
             android:layout_height="50dp"
             android:layout_below="@id/amount"
             android:layout_marginTop="10dp"
-            android:background="@drawable/buttonshape"
             android:text="PROCEED"
+            android:background="@drawable/buttonshape"
             android:textColor="#FFFFFF"
             android:textSize="25sp" />
     </RelativeLayout>

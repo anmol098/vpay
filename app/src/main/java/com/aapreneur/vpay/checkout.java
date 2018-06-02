@@ -1,12 +1,15 @@
 package com.aapreneur.vpay;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -30,7 +33,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,7 +40,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 public class checkout extends AppCompatActivity {
 
@@ -62,6 +63,8 @@ public class checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        createNotificationChannel();
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -137,9 +140,36 @@ public class checkout extends AppCompatActivity {
             image.setImageDrawable(getResources().getDrawable(R.drawable.ic_if_payu));
         }
     }
-    public void goToSo (View view) {
-        Submit();
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
 
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("second", name, importance);
+
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    public void goToSo (View view) {
+       Submit();
+       }
+
+    private void sendNotification(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "second")
+                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                .setContentTitle("Enter the Amount "+amount+" and Proceed")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("You Are Redirected To the Payments Page.Carefully Enter the Amount And proceed"))
+                .setPriority(NotificationCompat.PRIORITY_MAX);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+// notificationId is a unique int for each notification that you must define
+        notificationManager.notify(001, mBuilder.build());
     }
     private void goToUrl (String url) {
         Uri uriUrl = Uri.parse(url);
@@ -203,9 +233,11 @@ public class checkout extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Sucess",Toast.LENGTH_LONG).show();
                         if(mode.equals("paytm")) {
                             goToUrl(paytmUrl);
+                            sendNotification();
                         }
                         else{
                             goToUrl(payuUrl);
+                            sendNotification();
                         }
 
                     }

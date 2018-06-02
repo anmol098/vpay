@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class bank_details extends AppCompatActivity {
     private EditText editTextIFSC;
     public Button buttonProceed;
     String id;
+    private TextInputLayout tilName,tilNumber,tilIFSC;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
 
@@ -53,24 +55,30 @@ public class bank_details extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         editTextName = (EditText) findViewById(R.id.name);
         editTextAccountNumber = (EditText) findViewById(R.id.account_number_1);
         editTextIFSC = (EditText) findViewById(R.id.IFSC_1);
+        tilName = (TextInputLayout) findViewById(R.id.name1);
+        tilNumber = (TextInputLayout) findViewById(R.id.account_number);
+        tilIFSC = (TextInputLayout) findViewById(R.id.IFSC);
         buttonProceed = (Button) findViewById(R.id.proceed);
 
 
         buttonProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submit();
+                if(editTextName.getText().toString().equals(""))
+                    tilName.setError("Please Enter the Account Holder Name");
+                else if(editTextAccountNumber.getText().toString().equals(""))
+                    tilNumber.setError("Please enter the Account Number");
+                else if(editTextIFSC.getText().toString().equals(""))
+                    tilIFSC.setError("Please Enter the IFSC code");
+                else {
+                    tilIFSC.setError(null);
+                    tilNumber.setError(null);
+                    tilName.setError(null);
+                    submit();
+                }
             }
         });
     }
@@ -82,6 +90,7 @@ public class bank_details extends AppCompatActivity {
         final String accountNumber = editTextAccountNumber.getText().toString().trim();
         final String accountIFSC = editTextIFSC.getText().toString().trim().toUpperCase();
         id = user.getUid();
+
 
         new UpdateDataActivity().execute();
 

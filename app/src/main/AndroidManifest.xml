@@ -72,11 +72,21 @@
         <activity
             android:name=".privacy"
             android:label="@string/title_activity_privacy"
+            android:parentActivityName=".Main2Activity"
             android:theme="@style/MyMaterialTheme.NoActionBar" />
         <activity
             android:name=".faq"
             android:label="@string/title_activity_faq"
-            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+            android:parentActivityName=".Main2Activity"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".webView"
+            android:label="@string/title_activity_web_view"
+            android:theme="@style/MyMaterialTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

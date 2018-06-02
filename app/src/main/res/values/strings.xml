@@ -116,8 +116,12 @@
         This is the name that users will see when interacting with this channel.
         It should describe the category of notifications that will be sent through this channel
      -->
-    <string name="default_notification_channel_name" translatable="true">News</string>
+    <string name="default_notification_channel_name" translatable="true">Sucess</string>
     <string name="title_activity_privacy">Privacy Policy</string>
     <string name="title_activity_faq">FAQ</string>
+    <string name="title_activity_web_view">webView</string>
+
+    <string name="channel_name">Primary Channel</string>
+    <string name="noti_channel_second">Secondary Channel</string>
 </resources>
 

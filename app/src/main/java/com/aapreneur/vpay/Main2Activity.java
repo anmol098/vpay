@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -68,6 +69,7 @@ import com.mikepenz.octicons_typeface_library.Octicons;
 
 
 
+
 public class Main2Activity extends AppCompatActivity {
 
     private static final int PROFILE_SETTING = 1;
@@ -82,6 +84,8 @@ public class Main2Activity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
+    private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 2084;
+
 
 
     @Override
@@ -94,6 +98,12 @@ public class Main2Activity extends AppCompatActivity {
 
         String number = user.getPhoneNumber();
 
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, SYSTEM_ALERT_WINDOW_PERMISSION);
+        }*/
+
         if(number!= null)
             FirebaseMessaging.getInstance().subscribeToTopic(number.substring(1));
 
@@ -105,7 +115,7 @@ public class Main2Activity extends AppCompatActivity {
             NotificationManager notificationManager =
                     getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(new NotificationChannel(channelId,
-                    channelName, NotificationManager.IMPORTANCE_LOW));
+                    channelName, NotificationManager.IMPORTANCE_HIGH));
         }
 
 
@@ -115,6 +125,7 @@ public class Main2Activity extends AppCompatActivity {
                 Log.d("TAG", "Key: " + key + " Value: " + value);
             }
         }
+
 
 
 
