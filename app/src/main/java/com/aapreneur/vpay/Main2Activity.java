@@ -2,9 +2,11 @@ package com.aapreneur.vpay;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -32,6 +34,7 @@ import com.aapreneur.vpay.Fragment.add_ref_no;
 import com.aapreneur.vpay.Fragment.bank;
 import com.aapreneur.vpay.Fragment.form;
 import com.aapreneur.vpay.Fragment.profile;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -65,6 +68,7 @@ import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
 
@@ -84,7 +88,6 @@ public class Main2Activity extends AppCompatActivity {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
-    private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 2084;
 
 
 
@@ -128,6 +131,36 @@ public class Main2Activity extends AppCompatActivity {
 
 
 
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+            @Override
+            public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
+                Glide.with(imageView.getContext()).load(user.getPhotoUrl()).placeholder(placeholder).into(imageView);
+            }
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Glide.clear(imageView);
+            }
+
+            @Override
+            public Drawable placeholder(Context ctx, String tag) {
+                //define different placeholders for different imageView targets
+                //default tags are accessible via the DrawerImageLoader.Tags
+                //custom ones can be checked via string. see the CustomUrlBasePrimaryDrawerItem LINE 111
+                if (DrawerImageLoader.Tags.PROFILE.name().equals(tag)) {
+                    return DrawerUIUtils.getPlaceHolder(ctx);
+                } else if (DrawerImageLoader.Tags.ACCOUNT_HEADER.name().equals(tag)) {
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(com.mikepenz.materialdrawer.R.color.primary).sizeDp(56);
+                } else if ("customUrlItem".equals(tag)) {
+                    return new IconicsDrawable(ctx).iconText(" ").backgroundColorRes(R.color.md_red_500).sizeDp(56);
+                }
+
+                //we use the default one for
+                //DrawerImageLoader.Tags.PROFILE_DRAWER_ITEM.name()
+
+                return super.placeholder(ctx, tag);
+            }
+        });
 
 
 
@@ -140,7 +173,7 @@ public class Main2Activity extends AppCompatActivity {
         final IProfile profile = new ProfileDrawerItem()
                 .withName(user.getDisplayName())
                 .withEmail(user.getPhoneNumber())
-                .withIcon(Uri.parse("https://img7.androidappsapk.co/300/7/3/a/com.profile.admires_stalkers_unknown.png"));
+                .withIcon(user.getPhotoUrl());
 
 
 
@@ -268,14 +301,13 @@ public class Main2Activity extends AppCompatActivity {
                                         .withAboutAppName(getString(R.string.app_name))
                                         .withAboutVersionShown(true)
                                         .withAboutDescription(getString(R.string.app_desc))
-                                        .withLicenseDialog(true)
                                         .withLicenseShown(true)
                                         .start(Main2Activity.this);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(Main2Activity.this, faq.class);
-                            }/* else if (drawerItem.getIdentifier() == 4) {
-                                intent = new Intent(DrawerActivity.this, NonTranslucentDrawerActivity.class);
                             } else if (drawerItem.getIdentifier() == 5) {
+                                intent = new Intent(Main2Activity.this, receipt.class);
+                            }/* else if (drawerItem.getIdentifier() == 5) {
                                 intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);

@@ -123,5 +123,8 @@
 
     <string name="channel_name">Primary Channel</string>
     <string name="noti_channel_second">Secondary Channel</string>
+    <string name="title_activity_receipt">Detailed Transaction</string>
+    <string name="fees">-%1$s</string>
+    <string name="utr">UTR #%1$s</string>
 </resources>
 

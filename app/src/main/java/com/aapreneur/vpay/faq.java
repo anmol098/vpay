@@ -11,10 +11,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.aapreneur.vpay.app.utils.DualProgressView;
+
 public class faq extends AppCompatActivity {
     private String postUrl ="http://www.aapreneur.com/vpay/faq_android.html";
     private WebView webView;
-    private ProgressBar spinner;
+    private DualProgressView spinner;
     String ShowOrHideWebViewInitialUse = "show";
 
     @Override
@@ -26,7 +28,7 @@ public class faq extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         webView = (WebView) findViewById(R.id.webView);
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner = (DualProgressView) findViewById(R.id.progressBar1);
 
 
         webView.setWebViewClient(new CustomWebViewClient());

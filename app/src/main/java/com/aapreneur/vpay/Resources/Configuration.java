@@ -46,6 +46,10 @@ public class Configuration {
     public static final String KEY_ORDER_ID = "uOrderid";
     public static final String KEY_MODE = "mode";
 
+    //firebase storage constants
+    public static final String STORAGE_PATH_UPLOADS = "uploads/";
+    public static final String DATABASE_PATH_UPLOADS = "uploads";
+
 
 
     public  static final String KEY_ACTION = "action";

@@ -1,6 +1,7 @@
 package com.aapreneur.vpay;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +11,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.aapreneur.vpay.Resources.Configuration;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -29,9 +37,11 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
+
+            new ReadData1().execute();
             // already signed in
-            startActivity(new Intent(PhoneNumberAuthentication.this, Main2Activity.class));
-            finish();
+            //startActivity(new Intent(PhoneNumberAuthentication.this, Main2Activity.class));
+
         } else {
             // not signed in
             startActivityForResult(
@@ -61,9 +71,7 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
             if (resultCode == ResultCodes.OK) {
 
                 new ReadData1().execute();
-                /*startActivity(new Intent(PhoneNumberAuthentication.this,FirstSignup.class));
-                finish();*/
-                //return;
+
             } else {
                 // Sign in failed
                 if (response == null) {
@@ -89,6 +97,17 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
         int jIndex=0;
         String id,result,status;
         FirebaseAuth mAuth;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.progress,null);
+            setContentView(view);
+
+
+        }
 
         @Nullable
         @Override

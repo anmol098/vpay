@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -78,13 +80,15 @@
             android:name=".faq"
             android:label="@string/title_activity_faq"
             android:parentActivityName=".Main2Activity"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
         <activity
             android:name=".webView"
             android:label="@string/title_activity_web_view"
-            android:theme="@style/MyMaterialTheme.NoActionBar">
+            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+        <activity
+            android:name=".receipt"
+            android:label="@string/title_activity_receipt"
+            android:theme="@style/AppTheme">
 
         </activity>
     </application>

@@ -53,9 +53,11 @@
             android:id="@+id/amount"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:padding="30dp"
             android:textColorHint="@color/colorPrimary"
+            android:background="@drawable/edittext_layout"
             app:errorEnabled="true">
 
             <EditText
@@ -63,9 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Amount (₹)"
+                android:ems="10"
                 android:inputType="number"
-                android:paddingTop="10dp"
-                android:background="@drawable/edittext_layout"
                 android:textColor="@color/colorPrimary"
                 android:textColorHighlight="@color/colorPrimary" />
         </android.support.design.widget.TextInputLayout>

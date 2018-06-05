@@ -4,6 +4,7 @@ package com.aapreneur.vpay.Fragment;
  * Created by Anmol Pratap Singh on 28-01-2018.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,6 +22,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 
 import com.aapreneur.vpay.Resources.Configuration;
 import com.aapreneur.vpay.Resources.MyArrayAdapter;
+import com.aapreneur.vpay.receipt;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -68,6 +71,27 @@ public class bank extends Fragment {
         linearLayout = (LinearLayout)view.findViewById(R.id.view_empty);
         listView.setAdapter(adapter);
         new ReadData1().execute();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String mode = list.get(position).getMode();
+                String amount = list.get(position).getAmount();
+                String remarks = list.get(position).getRemarks();
+                String utr = list.get(position).getUTR();
+                String fees = list.get(position).getFees();
+                String payback = list.get(position).getPayback();
+
+                Intent i = new Intent(getActivity(),receipt.class);
+                i.putExtra("MODE",mode);
+                i.putExtra("AMOUNT",amount);
+                i.putExtra("REMARKS",remarks);
+                i.putExtra("UTR",utr);
+                i.putExtra("FEES",fees);
+                i.putExtra("PAYBACK",payback);
+                startActivity(i);
+            }
+        });
+
 
         return view;
     }
@@ -126,6 +150,10 @@ public class bank extends Fragment {
                                 String time = innerObject.getString("time");
                                 String transactionId = innerObject.getString("transactionId");
                                 String UTR = innerObject.getString("UTR");
+                                String mode = innerObject.getString("mode");
+                                String remarks = innerObject.getString("remarks");
+                                String fees = innerObject.getString("fees");
+                                String payback = innerObject.getString("payback");
 
                                 model.setUTR(UTR);
                                 model.setTransactionId(transactionId);
@@ -134,6 +162,12 @@ public class bank extends Fragment {
                                 model.setTime(time);
                                 model.setOrderId(orderId);
                                 model.setPaytmId(paytmId);
+                                model.setMode(mode);
+                                model.setRemarks(remarks);
+                                model.setFees(fees);
+                                model.setPayback(payback);
+
+                                Log.e("s",payback);
                                 //                              model.setImage(image);
 
                                 /**

@@ -169,7 +169,6 @@ public class add_ref_no extends Fragment {
                                 String paytmId = innerObject.getString("paytmId");
                                 String mode = innerObject.getString("mode");
 
-
                                 model.setAmount(Amount);
                                 model.setDate(date);
                                 model.setTime(time);

@@ -18,4 +18,11 @@
     <dimen name="title_bottom_margin">16dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
 
+    <dimen name="default_thickness">2dp</dimen>
+    <dimen name="default_inner_padding">8dp</dimen>
+
+    <integer name="default_anim_duration">3000</integer>
+    <integer name="default_anim_step">3</integer>
+    <integer name="default_start_angle">-90</integer>
+
 </resources>

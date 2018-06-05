@@ -14,6 +14,9 @@ public class MyDataModel {
     private String orderId;
     private String paytmId;
     private String mode;
+    private String remarks;
+    private String fees;
+    private String payback;
 
 
     public String getDate() {
@@ -67,6 +70,27 @@ public class MyDataModel {
     }
     public void setMode(String mode){
         this.mode=mode;
+    }
+
+    public String getRemarks(){
+        return remarks;
+    }
+    public void setRemarks(String remarks){
+        this.remarks=remarks;
+    }
+
+    public String getFees(){
+        return fees;
+    }
+    public void setFees(String fees){
+        this.fees=fees;
+    }
+
+    public String getPayback(){
+        return payback;
+    }
+    public void setPayback(String payback){
+        this.payback=payback;
     }
 
 }

@@ -30,7 +30,6 @@
                 android:id="@+id/profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/jaydeep"
                 android:layout_marginTop="70dp"
                 android:layout_marginLeft="5dp"
                 app:view_shadowRadius="2dp"
