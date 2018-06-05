@@ -4,14 +4,17 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,10 +69,14 @@ public class checkout extends AppCompatActivity {
 
         createNotificationChannel();
 
+        SharedPreferences prefs = getSharedPreferences("pref_data", MODE_PRIVATE);
+            email = prefs.getString("email", "No name defined");//"No name defined" is the default value.
+            Log.e("email",email);
+
+
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         mode = intent.getStringExtra("mode");
-        email = "anmol@test.com";
         number = intent.getStringExtra("number");
         IFSC = intent.getStringExtra("ifsc");
         amount = String.valueOf(inrFormat.format(intent.getDoubleExtra("amount",0)));

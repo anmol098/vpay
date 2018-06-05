@@ -6,9 +6,11 @@ package com.aapreneur.vpay.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -43,6 +45,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class profile extends Fragment{
 
@@ -58,8 +62,6 @@ public class profile extends Fragment{
     private TextView IFSC;
 
     private TextView tvemail;
-
-
     FirebaseAuth mAuth;
 
     public profile() {
@@ -89,10 +91,12 @@ public class profile extends Fragment{
 
 
         if (user != null) {
+            SharedPreferences prefs = this.getActivity().getSharedPreferences("pref_data", MODE_PRIVATE);
             name.setText(user.getDisplayName());
             mobile.setText(user.getPhoneNumber());
-            new ReadAccount().execute();
-            new ReadProfile().execute();
+            tvemail.setText(prefs.getString("email", "defaultValue"));
+            acoountNumber.setText(prefs.getString("account", "defaultValue"));
+            IFSC.setText(prefs.getString("ifsc", "defaultValue"));
 
 
            Glide.with(this)
@@ -105,7 +109,7 @@ public class profile extends Fragment{
         }
         return view;
     }
-    class ReadAccount extends AsyncTask< Void, Void, Void > {
+  /*  class ReadAccount extends AsyncTask< Void, Void, Void > {
 
         ProgressDialog dialog;
         int jIndex=0;
@@ -220,6 +224,6 @@ public class profile extends Fragment{
             dialog.dismiss();
 
         }
-    }
+    }*/
 
 }

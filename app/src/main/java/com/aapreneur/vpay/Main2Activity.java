@@ -2,13 +2,18 @@ package com.aapreneur.vpay;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -22,6 +27,7 @@ import android.net.Uri;
 
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -71,10 +77,16 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.octicons_typeface_library.Octicons;
 
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class Main2Activity extends AppCompatActivity {
+
+    String email,account,ifsc;
+
+
 
     private static final int PROFILE_SETTING = 1;
 
@@ -98,6 +110,9 @@ public class Main2Activity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        checkFirstRun();
+
 
         String number = user.getPhoneNumber();
 
@@ -365,6 +380,48 @@ public class Main2Activity extends AppCompatActivity {
         result.setSelection(1, true);
     }
 
+    private void checkFirstRun() {
+
+        final String PREFS_NAME = "MyPrefsFile";
+        final String PREF_VERSION_CODE_KEY = "version_code";
+        final int DOESNT_EXIST = -1;
+
+        // Get current version code
+        int currentVersionCode = BuildConfig.VERSION_CODE;
+
+        // Get saved version code
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+
+        // Check for first run or upgrade
+        if (currentVersionCode == savedVersionCode) {
+
+            // This is just a normal run
+            return;
+
+        } else if (savedVersionCode == DOESNT_EXIST) {
+
+            new ReadProfile().execute();
+
+            new ReadAccount().execute();
+
+            // TODO This is a new install (or the user cleared the shared preferences)
+
+        } else if (currentVersionCode > savedVersionCode) {
+
+            new ReadProfile().execute();
+
+            new ReadAccount().execute();
+
+            // TODO This is an upgrade
+        }
+
+        // Update the shared preferences with the current version code
+        prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
+    }
+
+
+
     private Fragment mCurrentFragment;
     private void switchMenu(PrimaryDrawerItem item) {
         String tag = item.getName().getText(this);
@@ -449,6 +506,119 @@ public class Main2Activity extends AppCompatActivity {
                 return true;*/
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    class ReadProfile extends AsyncTask< Void, Void, Void > {
+
+        ProgressDialog dialog;
+        int jIndex=0;
+        String name;
+        FirebaseAuth mAuth;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+
+        @Nullable
+        @Override
+        public Void doInBackground(Void...params) {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            JSONArray jsonArray = com.aapreneur.vpay.Resources.Configuration.readProfile(user.getUid());
+            try {
+
+                if (jsonArray != null) {
+
+                    if (jsonArray.length() > 0) {
+
+                        int lenArray = jsonArray.length();
+                        if (lenArray > 0) {
+                            for (; jIndex < lenArray; jIndex++) {
+                                JSONObject innerObject = jsonArray.getJSONObject(jIndex);
+
+                                String id = innerObject.getString("id");
+                                name = innerObject.getString("name");
+
+                                email = innerObject.getString("email");
+
+                            }
+                        }
+                    }
+                } else {
+
+                }
+            } catch (JSONException je) {
+                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            SharedPreferences.Editor editor = getSharedPreferences("pref_data", MODE_PRIVATE).edit();
+            editor.putString("email", email);
+            editor.apply();
+        }
+    }
+    class ReadAccount extends AsyncTask< Void, Void, Void > {
+
+        ProgressDialog dialog;
+        int jIndex = 0;
+        String name, number, ifsc;
+        FirebaseAuth mAuth;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Nullable
+        @Override
+        public Void doInBackground(Void... params) {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            JSONArray jsonArray = com.aapreneur.vpay.Resources.Configuration.readAccount(user.getUid());
+            try {
+
+                if (jsonArray != null) {
+
+                    if (jsonArray.length() > 0) {
+
+                        int lenArray = jsonArray.length();
+                        if (lenArray > 0) {
+                            for (; jIndex < lenArray; jIndex++) {
+                                JSONObject innerObject = jsonArray.getJSONObject(jIndex);
+
+                                String id = innerObject.getString("id");
+                                name = innerObject.getString("name");
+
+                                number = innerObject.getString("number");
+
+                                ifsc = innerObject.getString("ifsc");
+
+                            }
+                        }
+                    }
+                } else {
+
+                }
+            } catch (JSONException je) {
+                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            SharedPreferences.Editor editor = getSharedPreferences("pref_data", MODE_PRIVATE).edit();
+            editor.putString("account", number);
+            editor.putString("ifsc", ifsc);
+            editor.apply();
         }
     }
 }

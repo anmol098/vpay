@@ -39,8 +39,6 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
 
             new ReadData1().execute();
-            // already signed in
-            //startActivity(new Intent(PhoneNumberAuthentication.this, Main2Activity.class));
 
         } else {
             // not signed in
