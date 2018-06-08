@@ -91,6 +91,7 @@
             android:theme="@style/AppTheme">
 
         </activity>
-    </application>
 
-</manifest>
+           </application>
+
+       </manifest>

@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:text="Paytm Balance"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="15sp"
 
             android:textStyle="bold|italic" />
 
@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:text="Credit Balance"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold|italic" />
         </LinearLayout>
 

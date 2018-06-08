@@ -39,6 +39,7 @@ public class faq extends AppCompatActivity {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(true);
         webView.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        webView.getTitle();
     }
     private class CustomWebViewClient extends WebViewClient {
 

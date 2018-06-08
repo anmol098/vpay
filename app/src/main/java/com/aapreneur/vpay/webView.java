@@ -1,33 +1,39 @@
 package com.aapreneur.vpay;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-public class webView extends AppCompatActivity {
+import com.aapreneur.vpay.app.utils.DualProgressView;
 
-    private String postUrl ="http://www.aapreneur.com/vpay/policy.html";
+public class webView extends AppCompatActivity {
+    Intent intent = getIntent();
+    private String postUrl = "http://www.aapreneur.com/vpay/faq_android.html";
     private WebView webView;
-    private ProgressBar spinner;
+    private DualProgressView spinner;
     String ShowOrHideWebViewInitialUse = "show";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       String url=intent.getStringExtra("faq");
+       Log.i("meage",url);
         setContentView(R.layout.activity_faq);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         webView = (WebView) findViewById(R.id.webView);
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner = (DualProgressView) findViewById(R.id.progressBar1);
 
 
         webView.setWebViewClient(new CustomWebViewClient());

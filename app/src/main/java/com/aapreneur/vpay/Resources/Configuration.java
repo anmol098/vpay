@@ -104,11 +104,11 @@ public class Configuration {
         }
         return null;
     }
-    public static JSONObject updateRef(String id, String status) {
+    public static JSONObject updateRef(String id, String status,String name) {
         try {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
-                    .url(APP_SCRIPT_WEB_APP_URL+"?action=addRef&orderId="+id+"&refId="+status)
+                    .url(APP_SCRIPT_WEB_APP_URL+"?action=addRef&orderId="+id+"&refId="+status+"&name="+name)
                     .build();
             response = client.newCall(request).execute();
             //    Log.e(TAG,"response from gs"+response.body().string());

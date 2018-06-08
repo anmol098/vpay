@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class receipt extends AppCompatActivity {
 
     TextView paymentGateway,TVamount,amount_1,TVremarks,TVutr,amt,TVfees,paybackAmount,remarks_pending;
-    String mode,amount,remarks,utr,fees,payback;
+    String mode,amount,remarks,utr,fees,payback,date,txnID;
     LinearLayout payDetails;
     LinearLayout pendingPay;
 
@@ -43,7 +43,10 @@ public class receipt extends AppCompatActivity {
         remarks = intent.getExtras().getString("REMARKS");
         utr = intent.getExtras().getString("UTR");
         fees = intent.getExtras().getString("FEES");
+        date = intent.getExtras().getString("DATE");
         payback = intent.getExtras().getString("PAYBACK");
+        txnID = intent.getExtras().getString("TXNID");
+
 
         TVamount.setText(amount);
 
@@ -52,22 +55,31 @@ public class receipt extends AppCompatActivity {
         else if (mode.equals("credit"))
             paymentGateway.setText("Paid Using Credit Card");
         amount_1.setText(amount);
-        amt.setText(amount);
-        TVutr.setText(getString(R.string.utr,utr));
-        TVfees.setText(getString(R.string.fees,fees));
-        paybackAmount.setText(payback);
+
 
         if(remarks.equals("0")){
-            remarks_pending.setText("Your Payment is On Hold because you have not updated Ref id");
+            remarks_pending.setText(getString(R.string.ref_not_updated));
             pendingPay.setVisibility(View.VISIBLE);
             payDetails.setVisibility(View.GONE);
         }else if (remarks.equals("1")){
-            remarks_pending.setText("Amount Will be transferred yo your bank account by ");
+            remarks_pending.setText(getString(R.string.date,date));
             pendingPay.setVisibility(View.VISIBLE);
             payDetails.setVisibility(View.GONE);
         }else if(remarks.equals("2")){
             pendingPay.setVisibility(View.GONE);
             payDetails.setVisibility(View.VISIBLE);
+        }
+        else if(remarks.equals("3")&&!txnID.equals(""))
+        {
+            remarks_pending.setText(getString(R.string.refund,txnID));
+            pendingPay.setVisibility(View.VISIBLE);
+            payDetails.setVisibility(View.GONE);
+        }
+        else{
+            amt.setText(amount);
+            TVutr.setText(getString(R.string.utr,utr));
+            TVfees.setText(getString(R.string.fees,fees));
+            paybackAmount.setText(payback);
         }
 
 

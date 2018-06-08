@@ -220,7 +220,7 @@ public class checkout extends AppCompatActivity {
     private void Submit() {
         final ProgressDialog loading = ProgressDialog.show(this,"Redirecting...","Please don't press back button...",false,false);
 
-        final String userName = name;
+        final String accountName = name;
         final String userEmail = email;
         final String userId = user.getUid();
         final String userAccount = number;
@@ -260,7 +260,7 @@ public class checkout extends AppCompatActivity {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put(Configuration.KEY_ACTION,"order");
                 params.put(Configuration.KEY_ID,userId);
-                params.put(Configuration.KEY_ACC_NAME,userName);
+                params.put(Configuration.KEY_ACC_NAME,accountName);
                 params.put(Configuration.KEY_EMAIL,userEmail);
                 params.put(Configuration.KEY_ACC_NUMBER,userAccount);
                 params.put(Configuration.KEY_ACC_IFSC,userIfsc);

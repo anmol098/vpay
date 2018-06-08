@@ -1,6 +1,7 @@
 package com.aapreneur.vpay.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -54,6 +55,8 @@ public class add_ref_no extends Fragment {
     private MyArrayAdapterRef adapter;
     private String orderId;
     private String paytmId;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
 
     public add_ref_no() {
         // Required empty public constructor
@@ -133,8 +136,7 @@ public class add_ref_no extends Fragment {
                 jIndex = x;
 
             dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Hey Please Wait...");
-            dialog.setMessage("Fetching all Your Recent Transactions");
+            dialog.setTitle("Loading....");
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(false);
             dialog.show();
@@ -219,7 +221,8 @@ public class add_ref_no extends Fragment {
         @Nullable
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = Configuration.updateRef(orderId, paytmId);
+            String name = user.getDisplayName();
+            JSONObject jsonObject = Configuration.updateRef(orderId, paytmId,name);
             Log.i(Configuration.TAG, "Json obj ");
 
             try {

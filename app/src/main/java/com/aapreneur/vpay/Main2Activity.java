@@ -320,9 +320,9 @@ public class Main2Activity extends AppCompatActivity {
                                         .start(Main2Activity.this);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(Main2Activity.this, faq.class);
-                            } else if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(Main2Activity.this, receipt.class);
                             }/* else if (drawerItem.getIdentifier() == 5) {
+                                intent = new Intent(Main2Activity.this, PhoneActivity.class);
+                            }else if (drawerItem.getIdentifier() == 5) {
                                 intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);

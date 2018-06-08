@@ -80,6 +80,8 @@ public class bank extends Fragment {
                 String utr = list.get(position).getUTR();
                 String fees = list.get(position).getFees();
                 String payback = list.get(position).getPayback();
+                String date = list.get(position).getDate();
+                String txnID = list.get(position).getTransactionId();
 
                 Intent i = new Intent(getActivity(),receipt.class);
                 i.putExtra("MODE",mode);
@@ -88,6 +90,8 @@ public class bank extends Fragment {
                 i.putExtra("UTR",utr);
                 i.putExtra("FEES",fees);
                 i.putExtra("PAYBACK",payback);
+                i.putExtra("DATE",date);
+                i.putExtra("TXNID",txnID);
                 startActivity(i);
             }
         });
@@ -114,8 +118,7 @@ public class bank extends Fragment {
                 jIndex = x;
 
             dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Hey Wait Please...");
-            dialog.setMessage("Fetching all your orders");
+            dialog.setTitle("Loading....");
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(false);
             dialog.show();

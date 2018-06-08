@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -24,13 +25,20 @@ import android.widget.EditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.aapreneur.vpay.BuildConfig;
 import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.Resources.Configuration;
 import com.aapreneur.vpay.bank_details;
 import com.aapreneur.vpay.checkout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,12 +50,15 @@ import java.util.Locale;
 public class form extends Fragment{
 
     public String fee,creditfee,mode;
+    boolean isPromoApplied=false;
     public EditText amount;
     public double AmtPayback,fees,txnAmount;
     public Button buttonProceed;
     public double percent ;
     TextInputLayout til;
+    String upper_limit,promo_code;
     CheckBox paytmCheck,creditCheck;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
     Locale INR = new Locale("en", "IN");
     NumberFormat inrFormat = NumberFormat.getCurrencyInstance(INR);
@@ -86,17 +97,49 @@ public class form extends Fragment{
             }
         });
 
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+
+        long cacheExpiration = 0;
+
+        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Fetch Succeeded",
+                            Toast.LENGTH_SHORT).show();
+
+                    // After config data is successfully fetched, it must be activated before newly fetched
+                    // values are returned.
+                    mFirebaseRemoteConfig.activateFetched();
+
+                    upper_limit = mFirebaseRemoteConfig.getString("upper_limit");
+                    promo_code = mFirebaseRemoteConfig.getString("promo_code");
+                } else {
+                    Toast.makeText(getActivity(), "Fetch Failed",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
+
+
         buttonProceed.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 if (amount.getText().toString().equals("")) {
-                    til.setError("Please enter a valid amount between ₹100 and ₹2000");
+                    til.setError("Please enter a valid amount between ₹100 and ₹"+upper_limit);
                 }else if(Integer.parseInt(amount.getText().toString())< 100){
                 til.setError("Please enter a valid amount between ₹100 and ₹2000");
-            }else if (Integer.parseInt(amount.getText().toString())> 2000){
-                    til.setError("Please enter a valid amount between ₹100 and ₹2000");
+            }else if (Integer.parseInt(amount.getText().toString())> Integer.parseInt(upper_limit)){
+                    til.setError("Please enter a valid amount between ₹100 and ₹"+upper_limit);
                 }
                 else {
                     til.setError(null);
@@ -197,8 +240,6 @@ public class form extends Fragment{
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dialog.dismiss();
-            final String amt = amount.getText().toString().trim();
-
                 if (fee.equals("invalid")) {
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -221,27 +262,7 @@ public class form extends Fragment{
 
 
                 } else {
-                    if(creditCheck.isChecked())
-                    {
-                        fee = creditfee;
-                        paytmCheck.setChecked(false);
-                        mode = "credit";
-                    }
-                    else if(paytmCheck.isChecked())
-                    {
-                        creditCheck.setChecked(false);
-                        mode = "paytm";
-                    }
-                    try {
-                        txnAmount = Integer.parseInt(amt);
-                        percent = Double.parseDouble(fee);
-
-                    } catch (NumberFormatException e) {
-                        //
-                    }
-                    fees = txnAmount * percent;
-                    AmtPayback = txnAmount - fees;
-                    Toast.makeText(getContext(), "Your Transaction fees for this Transaction is" + (percent * 100) + "%", Toast.LENGTH_LONG).show();
+                   calculate();
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new AlertDialog.Builder(getActivity(), R.style.CustomDialogTheme);
@@ -255,15 +276,88 @@ public class form extends Fragment{
                                     new ReadAccount().execute();
                                 }
                             })
-                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            .setNeutralButton("Promo Code", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // do nothing
+                                    final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(),R.style.CustomDialogTheme);
+                                    final EditText input = new EditText(getActivity());
+                                    input.setHint("Enter Promo Code");
+                                    alert.setTitle("Promo Code");
+                                    alert.setView(input);
+                                    LinearLayout layout = new LinearLayout(getActivity());
+                                    layout.setOrientation(LinearLayout.VERTICAL);
+                                    layout.addView(input);
+
+                                    alert.setView(layout);
+                                    alert.setPositiveButton("Check",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog,
+                                                                    int which) {
+                                                    if (input.getText().toString().trim().equalsIgnoreCase(promo_code)) {
+                                                        fee="0";
+                                                        isPromoApplied=true;
+                                                        calculate();
+                                                        new ReadAccount().execute();
+
+                                                    }
+                                                    else{
+                                                        Toast.makeText(getActivity(), "Invalid Promo Code or Promo Code Not Active", Toast.LENGTH_LONG).show();
+
+                                                    }
+                                                }
+                                            });
+                                    alert.setNegativeButton("Proceed",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog,
+                                                                    int which) {
+                                                        new ReadAccount().execute();
+                                                }
+                                            });
+                                    alert.show();
+
+
+
+
+
+
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show()
                             .setCancelable(false);
             }
+        }
+    }
+
+    private void calculate(){
+        final String amt = amount.getText().toString().trim();
+        if(creditCheck.isChecked())
+        {
+            fee = creditfee;
+            paytmCheck.setChecked(false);
+            mode = "credit";
+        }
+        else if(paytmCheck.isChecked())
+        {
+            creditCheck.setChecked(false);
+            mode = "paytm";
+        }
+        try {
+            txnAmount = Integer.parseInt(amt);
+            percent = Double.parseDouble(fee);
+
+        } catch (NumberFormatException e) {
+            //
+        }
+        fees = txnAmount * percent;
+        AmtPayback = txnAmount - fees;
+        if(fee.equalsIgnoreCase("0")&&isPromoApplied) {
+            isPromoApplied=false;
+            Toast.makeText(getContext(), "Promo Code Applied Your Transaction Fees For this Transaction is " + (percent * 100) + "%", Toast.LENGTH_LONG).show();
+        } else if(mode.equals("credit")&&isPromoApplied){
+            Toast.makeText(getContext(),"Sorry Promo Code Not Applicable For This Transaction",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getContext(), "Your Transaction Fees For This Transaction is " + (percent * 100) + "%", Toast.LENGTH_LONG).show();
         }
     }
 

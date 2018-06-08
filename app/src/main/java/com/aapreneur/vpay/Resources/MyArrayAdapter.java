@@ -48,13 +48,23 @@ final ViewHolder vh;
         }
 
         MyDataModel item = getItem(position);
-
-        vh.textViewTransactionId.setText(item.getTransactionId());
         vh.textViewDate.setText(item.getDate());
-        vh.textViewTime.setText(item.getTime());
         vh.textViewAmount.setText(item.getAmount());
-        vh.textViewUTR.setText(item.getUTR());
-        vh.textViewPaytmId.setText(item.getPaytmId());
+        String date = item.getDate();
+
+        if(item.getRemarks().equals("0")){
+            vh.textViewRemark.setText(R.string.ref_not_updated);
+
+        }
+        else if(item.getRemarks().equals("1")){
+            vh.textViewRemark.setText("Transaction Initiated on "+date);
+        }
+        else if(item.getRemarks().equals("2")){
+            vh.textViewRemark.setText("Transaction Succesful");
+        }
+        else if(item.getRemarks().equals("3")){
+            vh.textViewRemark.setText("Refund Initiated");
+        }
 
 
 
@@ -65,35 +75,25 @@ final ViewHolder vh;
 
 private static class ViewHolder {
     public final RelativeLayout rootView;
-
-    public final TextView textViewTransactionId;
     public final TextView textViewDate;
     public final TextView textViewAmount;
-    public final TextView textViewTime;
-    public final TextView textViewUTR;
-    public final TextView textViewPaytmId;
+    public final TextView textViewRemark;
 
 
-    private ViewHolder(RelativeLayout rootView, TextView textViewDate, TextView textViewTransactionId, TextView textViewUTR, TextView textViewTime,TextView textViewAmount,TextView textViewPaytmId) {
+    private ViewHolder(RelativeLayout rootView, TextView textViewDate, TextView textViewAmount,TextView textViewRemark) {
         this.rootView = rootView;
-        this.textViewTransactionId = textViewTransactionId;
         this.textViewDate = textViewDate;
-        this.textViewUTR = textViewUTR;
+        this.textViewRemark = textViewRemark;
         this.textViewAmount = textViewAmount;
-        this.textViewTime = textViewTime;
-        this.textViewPaytmId = textViewPaytmId;
 
     }
 
     public static ViewHolder create(RelativeLayout rootView) {
-        TextView textViewTransactionId = (TextView) rootView.findViewById(R.id.transactionId);
-        TextView textViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
-        TextView textViewUTR = (TextView) rootView.findViewById(R.id.UTR);
-        TextView textViewTime = (TextView) rootView.findViewById(R.id.time);
-        TextView textViewAmount = (TextView) rootView.findViewById(R.id.textViewAmount);
-        TextView textViewPaytmId = (TextView) rootView.findViewById(R.id.paytmOrderId);
+        TextView textViewDate = (TextView) rootView.findViewById(R.id.date);
+        TextView textViewAmount = (TextView) rootView.findViewById(R.id.amount);
+        TextView textViewRemark = (TextView) rootView.findViewById(R.id.paragraph);
 
-        return new ViewHolder(rootView, textViewDate, textViewTransactionId, textViewUTR,textViewTime,textViewAmount,textViewPaytmId);
+        return new ViewHolder(rootView, textViewDate,textViewAmount,textViewRemark);
     }
 }
 }

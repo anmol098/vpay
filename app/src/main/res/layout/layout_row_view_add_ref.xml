@@ -4,67 +4,81 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#ffe0e0"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:paddingBottom="5dp">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
-        card_view:cardCornerRadius="24dp"
-        card_view:cardElevation="10dp"
-        card_view:contentPadding="10dp">
+        android:elevation="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/rectangle"
+        android:orientation="vertical"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="25dp">
 
 
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textViewDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="46dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                tools:text="02 Apr 2018" />
 
             <TextView
                 android:id="@+id/textViewAmount"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:textAppearance="?android:textAppearanceLarge"
-                tools:text="$50000" />
+                android:text="$1422.90"
+                android:theme="@style/Rupees"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Click To Add Ref ID"
+                android:layout_weight="1"
+                android:theme="@style/Paragraph" />
 
             <ImageView
                 android:id="@+id/mode"
+                android:layout_gravity="right"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/textViewDate"
-                android:layout_marginEnd="41dp"
-                android:layout_marginRight="41dp"
+                android:layout_weight="1"
                 android:src="@drawable/ic_if_paytm" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textAppearance="?android:textAppearanceMedium"
-                tools:text="3:48 PM" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:gravity="right"
+                android:paddingBottom="2dp"
+                android:layout_weight="0.5"
+                android:text="5:45 PM"
+                android:theme="@style/Sub_Text"/>
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="right"
+            android:paddingBottom="2dp"
+            android:layout_weight="1.5"
+            android:text="3 days ago"
+            android:theme="@style/Sub_Text"/>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

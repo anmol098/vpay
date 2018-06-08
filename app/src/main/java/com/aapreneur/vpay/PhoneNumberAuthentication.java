@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aapreneur.vpay.Resources.Configuration;
 import com.firebase.ui.auth.AuthUI;
@@ -38,7 +40,12 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
 
+            if(isInternetOn())
             new ReadData1().execute();
+            else {
+                startActivity(new Intent(PhoneNumberAuthentication.this, Main2Activity.class));
+                finish();
+            }
 
         } else {
             // not signed in
@@ -88,6 +95,28 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
             }
             Log.e("Login","Unknown sign in response");
         }
+    }
+    public final boolean isInternetOn() {
+
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if ( connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
+
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED  ) {
+
+            Toast.makeText(getApplicationContext(), " Not Connected Some functionality may be disabled", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return false;
     }
     class ReadData1 extends AsyncTask< Void, Void, Void > {
 
@@ -160,8 +189,9 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
                 startActivity(new Intent(PhoneNumberAuthentication.this,bank_details.class));
                 finish();
             }else if(result.equals("invalid")&&status.equals("invalid")){
-                                android.os.Process.killProcess(android.os.Process.myPid());
-                                System.exit(1);
+                Toast.makeText(getApplicationContext(), " Not Connected Some functionality may be disabled", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(PhoneNumberAuthentication.this,Main2Activity.class));
+                finish();
             }
         }
     }

@@ -60,7 +60,11 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         else if(item.getMode().equals("paytm")){
             vh.imageViewMode.setImageResource(R.drawable.ic_if_paytm);
         }
-
+        if(item.getPaytmId().equals("")){
+            vh.textViewParagraph.setText("Click here To Update Refrence Id");
+        }else if(item.getPaytmId()!=""){
+            vh.textViewParagraph.setText("Refrence Id- "+item.getPaytmId());
+        }
 
         return vh.rootView;
     }
@@ -72,12 +76,13 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         public final TextView textViewDate;
         public final TextView textViewAmount;
         public final TextView textViewTime;
+        public final TextView textViewParagraph;
         public final ImageView imageViewMode;
 
 
-        private ViewHolder(RelativeLayout rootView, TextView textViewDate,TextView textViewTime,TextView textViewAmount,ImageView imageViewMode) {
+        private ViewHolder(RelativeLayout rootView, TextView textViewDate,TextView textViewTime,TextView textViewAmount,ImageView imageViewMode,TextView textViewParagraph) {
             this.rootView = rootView;
-
+            this.textViewParagraph=textViewParagraph;
             this.textViewDate = textViewDate;
             this.textViewAmount = textViewAmount;
             this.textViewTime = textViewTime;
@@ -89,8 +94,9 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
             TextView textViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
             TextView textViewTime = (TextView) rootView.findViewById(R.id.time);
             TextView textViewAmount = (TextView) rootView.findViewById(R.id.textViewAmount);
+            TextView textViewParagraph = (TextView)rootView.findViewById(R.id.paragraph);
             ImageView imageViewMode = (ImageView) rootView.findViewById(R.id.mode);
-            return new MyArrayAdapterRef.ViewHolder(rootView,textViewDate, textViewTime,textViewAmount,imageViewMode);
+            return new MyArrayAdapterRef.ViewHolder(rootView,textViewDate, textViewTime,textViewAmount,imageViewMode,textViewParagraph);
         }
     }
 }
