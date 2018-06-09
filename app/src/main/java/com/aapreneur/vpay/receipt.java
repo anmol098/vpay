@@ -1,20 +1,28 @@
 package com.aapreneur.vpay;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.aapreneur.vpay.app.utils.SystemUtils;
 
 
 public class receipt extends AppCompatActivity {
 
     TextView paymentGateway,TVamount,amount_1,TVremarks,TVutr,amt,TVfees,paybackAmount,remarks_pending;
-    String mode,amount,remarks,utr,fees,payback,date,txnID;
+    String mode,amount,remarks,utr,fees,payback,date,txnID,orderid;
     LinearLayout payDetails;
     LinearLayout pendingPay;
 
@@ -22,7 +30,7 @@ public class receipt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         paymentGateway = (TextView)findViewById(R.id.paymentGateway);
@@ -36,6 +44,9 @@ public class receipt extends AppCompatActivity {
         remarks_pending = (TextView)findViewById(R.id.remarks_pending);
         payDetails = (LinearLayout)findViewById(R.id.paymentDetails);
         pendingPay = (LinearLayout)findViewById(R.id.pending_pay);
+        ImageView close = (ImageView)findViewById(R.id.close);
+        ImageView menu = (ImageView)findViewById(R.id.menu);
+
 
         Intent intent = getIntent();
         mode = intent.getExtras().getString("MODE");
@@ -46,6 +57,7 @@ public class receipt extends AppCompatActivity {
         date = intent.getExtras().getString("DATE");
         payback = intent.getExtras().getString("PAYBACK");
         txnID = intent.getExtras().getString("TXNID");
+        orderid = intent.getExtras().getString("VPAYID");
 
 
         TVamount.setText(amount);
@@ -82,13 +94,34 @@ public class receipt extends AppCompatActivity {
             paybackAmount.setText(payback);
         }
 
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        /*menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"support@theaapreneur.zohodesk.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, "Issue Related to order id "+orderid);
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(receipt.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

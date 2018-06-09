@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +46,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.view.View.GONE;
 
 
 public class add_ref_no extends Fragment {
@@ -51,6 +55,7 @@ public class add_ref_no extends Fragment {
 
     private ListView listView;
     private LinearLayout linearLayout;
+    private RelativeLayout relativeLayout;
     private ArrayList <MyDataModel> list;
     private MyArrayAdapterRef adapter;
     private String orderId;
@@ -75,6 +80,7 @@ public class add_ref_no extends Fragment {
         adapter = new MyArrayAdapterRef(getActivity(), list);
         listView = (ListView) view.findViewById(R.id.listView);
         linearLayout = (LinearLayout)view.findViewById(R.id.view_empty);
+        relativeLayout =(RelativeLayout)view.findViewById(R.id.activity_main);
         listView.setAdapter(adapter);
         new ReadData1().execute();
 
@@ -123,7 +129,6 @@ public class add_ref_no extends Fragment {
         ProgressDialog dialog;
         int jIndex;
         FirebaseAuth mAuth;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -135,11 +140,12 @@ public class add_ref_no extends Fragment {
             else
                 jIndex = x;
 
-            dialog = new ProgressDialog(getActivity());
+            /*dialog = new ProgressDialog(getActivity());
             dialog.setTitle("Loading....");
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(false);
-            dialog.show();
+            dialog.show();*/
+            relativeLayout.setVisibility(View.VISIBLE);
         }
 
         @Nullable
@@ -194,13 +200,15 @@ public class add_ref_no extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            dialog.dismiss();
+            relativeLayout.setVisibility(GONE);
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
+
             } else {
                 Toast.makeText(getActivity(), "No data found", Toast.LENGTH_LONG).show();
-                listView.setVisibility(View.GONE);
+                listView.setVisibility(GONE);
                 linearLayout.setVisibility(View.VISIBLE);
+
             }
         }
     }

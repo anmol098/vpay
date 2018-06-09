@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.aapreneur.vpay.Resources.Configuration;
@@ -43,11 +44,14 @@ import java.util.ArrayList;
 import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.Resources.MyDataModel;
 
+import static android.view.View.GONE;
+
 
 public class bank extends Fragment {
 
     private ListView listView;
     private LinearLayout linearLayout;
+    private RelativeLayout relativeLayout;
     private ArrayList <MyDataModel> list;
     private MyArrayAdapter adapter;
 
@@ -69,6 +73,7 @@ public class bank extends Fragment {
         adapter = new MyArrayAdapter(getActivity(), list);
         listView = (ListView) view.findViewById(R.id.listView);
         linearLayout = (LinearLayout)view.findViewById(R.id.view_empty);
+        relativeLayout =(RelativeLayout)view.findViewById(R.id.activity_main);
         listView.setAdapter(adapter);
         new ReadData1().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,6 +87,7 @@ public class bank extends Fragment {
                 String payback = list.get(position).getPayback();
                 String date = list.get(position).getDate();
                 String txnID = list.get(position).getTransactionId();
+                String orderid = list.get(position).getOrderId();
 
                 Intent i = new Intent(getActivity(),receipt.class);
                 i.putExtra("MODE",mode);
@@ -92,6 +98,7 @@ public class bank extends Fragment {
                 i.putExtra("PAYBACK",payback);
                 i.putExtra("DATE",date);
                 i.putExtra("TXNID",txnID);
+                i.putExtra("VPAYID",orderid);
                 startActivity(i);
             }
         });
@@ -117,11 +124,7 @@ public class bank extends Fragment {
             else
                 jIndex = x;
 
-            dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Loading....");
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            relativeLayout.setVisibility(View.VISIBLE);
         }
 
         @Nullable
@@ -192,11 +195,7 @@ public class bank extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            dialog.dismiss();
-            /**
-             * Checking if List size if more than zero then
-             * Update ListView
-             */
+            relativeLayout.setVisibility(GONE);
             if (list.size() > 0) {
                 adapter.notifyDataSetChanged();
             } else {

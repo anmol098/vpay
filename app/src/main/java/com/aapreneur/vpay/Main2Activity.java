@@ -40,6 +40,7 @@ import com.aapreneur.vpay.Fragment.add_ref_no;
 import com.aapreneur.vpay.Fragment.bank;
 import com.aapreneur.vpay.Fragment.form;
 import com.aapreneur.vpay.Fragment.profile;
+import com.aapreneur.vpay.Resources.MyDataModel;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -110,18 +111,12 @@ public class Main2Activity extends AppCompatActivity {
         // Handle Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         checkFirstRun();
+        SharedPreferences prefs = getSharedPreferences("pref_data", MODE_PRIVATE);
+        String count= prefs.getString("total", "0");
 
 
         String number = user.getPhoneNumber();
-
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, SYSTEM_ALERT_WINDOW_PERMISSION);
-        }*/
-
         if(number!= null)
             FirebaseMessaging.getInstance().subscribeToTopic(number.substring(1));
 
@@ -233,7 +228,8 @@ public class Main2Activity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withTranslucentStatusBar(false)
                 .withItemAnimator(new AlphaCrossFadeAnimator())
-                .withAccountHeader(headerResult)  //set the AccountHeader we created earlier for the header
+                .withAccountHeader(headerResult)
+                .withSliderBackgroundColorRes(R.color.drawerBackground)
                 .addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName("PAY")
@@ -242,7 +238,7 @@ public class Main2Activity extends AppCompatActivity {
                                 .withTag(form.class.getName()),
                         new PrimaryDrawerItem()
                                 .withName("Add Ref No.")
-                                .withIcon(GoogleMaterial.Icon.gmd_receipt).withBadge("100")
+                                .withIcon(GoogleMaterial.Icon.gmd_receipt).withBadge(count)
                                 .withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.colorPrimary))
                                 .withIdentifier(2)
                                 .withTag(add_ref_no.class.getName()),
@@ -285,18 +281,7 @@ public class Main2Activity extends AppCompatActivity {
                                 .withIcon(FontAwesome.Icon.faw_github)
                                 .withTag("open source")
                                 .withIdentifier(9)
-
-                      /* new DividerDrawerItem(),
-                        new SwitchDrawerItem()
-                                .withName("Switch").withIcon(Octicons.Icon.oct_tools)
-                                .withChecked(true)
-                                .withOnCheckedChangeListener(onCheckedChangeListener),
-                        new ToggleDrawerItem()
-                                .withName("Toggle")
-                                .withIcon(Octicons.Icon.oct_tools)
-                                .withChecked(true)
-                                .withOnCheckedChangeListener(onCheckedChangeListener)*/
-                ) // add the items we want to use with our Drawer
+                )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -324,29 +309,6 @@ public class Main2Activity extends AppCompatActivity {
                                 intent = new Intent(Main2Activity.this, PhoneActivity.class);
                             }else if (drawerItem.getIdentifier() == 5) {
                                 intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
-                            } else if (drawerItem.getIdentifier() == 7) {
-                                intent = new Intent(DrawerActivity.this, EmbeddedDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 8) {
-                                intent = new Intent(DrawerActivity.this, FullscreenDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 9) {
-                                intent = new Intent(DrawerActivity.this, CustomContainerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 10) {
-                                intent = new Intent(DrawerActivity.this, MenuDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 11) {
-                                intent = new Intent(DrawerActivity.this, MiniDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 12) {
-                                intent = new Intent(DrawerActivity.this, FragmentActivity.class);
-                            } else if (drawerItem.getIdentifier() == 13) {
-                                intent = new Intent(DrawerActivity.this, CollapsingToolbarActivity.class);
-                            } else if (drawerItem.getIdentifier() == 14) {
-                                intent = new Intent(DrawerActivity.this, PersistentDrawerActivity.class);
-                            } else if (drawerItem.getIdentifier() == 15) {
-                                intent = new Intent(DrawerActivity.this, CrossfadeDrawerLayoutActvitiy.class);
-                            } else if (drawerItem.getIdentifier() == 20) {
-                                intent = new LibsBuilder()
-                                        .withFields(R.string.class.getFields())
-                                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                                        .intent(DrawerActivity.this);
                             }*/
                             if (intent != null) {
                                 Main2Activity.this.startActivity(intent);
@@ -396,10 +358,11 @@ public class Main2Activity extends AppCompatActivity {
         // Check for first run or upgrade
         if (currentVersionCode == savedVersionCode) {
 
-            // This is just a normal run
+            new ReadCount().execute();
             return;
 
         } else if (savedVersionCode == DOESNT_EXIST) {
+            new ReadCount().execute();
 
             new ReadProfile().execute();
 
@@ -408,6 +371,7 @@ public class Main2Activity extends AppCompatActivity {
             // TODO This is a new install (or the user cleared the shared preferences)
 
         } else if (currentVersionCode > savedVersionCode) {
+            new ReadCount().execute();
 
             new ReadProfile().execute();
 
@@ -621,4 +585,57 @@ public class Main2Activity extends AppCompatActivity {
             editor.apply();
         }
     }
+    class ReadCount extends AsyncTask< Void, Void, Void > {
+
+        ProgressDialog dialog;
+        int jIndex = 0;
+        String count;
+        FirebaseAuth mAuth;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Nullable
+        @Override
+        public Void doInBackground(Void... params) {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            JSONArray jsonArray = com.aapreneur.vpay.Resources.Configuration.count(user.getUid());
+            try {
+
+                if (jsonArray != null) {
+
+                    if (jsonArray.length() > 0) {
+
+                        int lenArray = jsonArray.length();
+                        if (lenArray > 0) {
+                            for (; jIndex < lenArray; jIndex++) {
+                                JSONObject innerObject = jsonArray.getJSONObject(jIndex);
+
+                                String id = innerObject.getString("id");
+                                 count= innerObject.getString("count");
+                            }
+                        }
+                    }
+                } else {
+
+                }
+            } catch (JSONException je) {
+                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            SharedPreferences.Editor editor = getSharedPreferences("pref_data", MODE_PRIVATE).edit();
+            editor.putString("total", count);
+            editor.apply();
+        }
+    }
+
 }

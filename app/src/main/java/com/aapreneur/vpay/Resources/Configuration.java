@@ -88,6 +88,22 @@ public class Configuration {
         }
         return null;
     }
+    public static JSONArray count(String id) {
+        try {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(APP_SCRIPT_WEB_APP_URL+"?action=count&uId="+id)
+                    .build();
+            response = client.newCall(request).execute();
+            // Log.e(TAG,"response from gs"+response.body().string());
+            return new JSONArray(response.body().string());
+
+
+        } catch (@NonNull IOException | JSONException e) {
+            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
+        }
+        return null;
+    }
     public static JSONObject updateData(String id, String status) {
         try {
             OkHttpClient client = new OkHttpClient();

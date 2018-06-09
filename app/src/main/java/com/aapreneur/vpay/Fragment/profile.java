@@ -91,7 +91,7 @@ public class profile extends Fragment{
 
 
         if (user != null) {
-            SharedPreferences prefs = this.getActivity().getSharedPreferences("pref_data", MODE_PRIVATE);
+            SharedPreferences prefs = getActivity().getSharedPreferences("pref_data", MODE_PRIVATE);
             name.setText(user.getDisplayName());
             mobile.setText(user.getPhoneNumber());
             tvemail.setText(prefs.getString("email", "defaultValue"));

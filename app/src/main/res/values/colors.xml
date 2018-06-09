@@ -17,4 +17,5 @@
     <color name="text">#7C00EC</color>
     <color name="textred">#fb397d</color>
     <color name="textwhite">#ffffff</color>
+    <color name="drawerBackground">#ffe0e0</color>
 </resources>

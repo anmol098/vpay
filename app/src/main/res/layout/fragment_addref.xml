@@ -31,5 +31,6 @@
             android:textColor="@android:color/black" />
 
     </LinearLayout>
+    <include layout="@layout/progress"/>
 
 </RelativeLayout>

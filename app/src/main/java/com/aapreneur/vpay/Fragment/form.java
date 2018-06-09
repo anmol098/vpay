@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -47,6 +48,8 @@ import org.json.JSONObject;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class form extends Fragment{
 
     public String fee,creditfee,mode;
@@ -56,7 +59,7 @@ public class form extends Fragment{
     public Button buttonProceed;
     public double percent ;
     TextInputLayout til;
-    String upper_limit,promo_code;
+    String upper_limit,promo_code,txnNum,promo_upper_limit;
     CheckBox paytmCheck,creditCheck;
     private FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
@@ -117,6 +120,8 @@ public class form extends Fragment{
 
                     upper_limit = mFirebaseRemoteConfig.getString("upper_limit");
                     promo_code = mFirebaseRemoteConfig.getString("promo_code");
+                    txnNum = mFirebaseRemoteConfig.getString("txnNum");
+                    promo_upper_limit = mFirebaseRemoteConfig.getString("promo_upper_limit");
                 } else {
                     Toast.makeText(getActivity(), "Fetch Failed",
                             Toast.LENGTH_SHORT).show();
@@ -288,28 +293,26 @@ public class form extends Fragment{
                                     layout.addView(input);
 
                                     alert.setView(layout);
-                                    alert.setPositiveButton("Check",
+                                    alert.setPositiveButton("Proceed",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog,
                                                                     int which) {
-                                                    if (input.getText().toString().trim().equalsIgnoreCase(promo_code)) {
+                                                    SharedPreferences prefs = getActivity().getSharedPreferences("pref_data", MODE_PRIVATE);
+                                                    String count = prefs.getString("total", "0");
+                                                    int promo_amt = Integer.parseInt(amount.getText().toString().trim());
+                                                    if (input.getText().toString().trim().equalsIgnoreCase(promo_code)&&count.equals(txnNum)&&promo_amt<=Integer.parseInt(promo_upper_limit)) {
                                                         fee="0";
                                                         isPromoApplied=true;
                                                         calculate();
                                                         new ReadAccount().execute();
 
+                                                    }else if(promo_amt>Integer.parseInt(promo_upper_limit)){
+                                                        Toast.makeText(getContext(),"Sorry Maximum Transaction amount Should be less then ₹"+promo_upper_limit,Toast.LENGTH_LONG).show();
                                                     }
-                                                    else{
+                                                    else if(!input.getText().toString().trim().equalsIgnoreCase(promo_code)){
                                                         Toast.makeText(getActivity(), "Invalid Promo Code or Promo Code Not Active", Toast.LENGTH_LONG).show();
 
                                                     }
-                                                }
-                                            });
-                                    alert.setNegativeButton("Proceed",
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog,
-                                                                    int which) {
-                                                        new ReadAccount().execute();
                                                 }
                                             });
                                     alert.show();
