@@ -59,7 +59,7 @@ public class form extends Fragment{
     public Button buttonProceed;
     public double percent ;
     TextInputLayout til;
-    String upper_limit,promo_code,txnNum,promo_upper_limit;
+    String upper_limit="2000",promo_code,txnNum,promo_upper_limit;
     CheckBox paytmCheck,creditCheck;
     private FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 

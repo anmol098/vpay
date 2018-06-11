@@ -305,11 +305,13 @@ public class Main2Activity extends AppCompatActivity {
                                         .start(Main2Activity.this);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(Main2Activity.this, faq.class);
-                            }/* else if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(Main2Activity.this, PhoneActivity.class);
                             }else if (drawerItem.getIdentifier() == 5) {
-                                intent = new Intent(DrawerActivity.this, AdvancedActivity.class);
-                            }*/
+                                intent = new Intent(Main2Activity.this, webView.class);
+                                intent.putExtra("URL","http://www.aapreneur.com/vpay/how-it-works.php");
+                                intent.putExtra("TITLE","HOW IT WORKS");
+                            }else if (drawerItem.getIdentifier() == 6) {
+                                intent = new Intent(Main2Activity.this, Contact_us.class);
+                            }
                             if (intent != null) {
                                 Main2Activity.this.startActivity(intent);
                             }
@@ -344,7 +346,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void checkFirstRun() {
 
-        final String PREFS_NAME = "MyPrefsFile";
+        final String PREFS_NAME = "pref_data";
         final String PREF_VERSION_CODE_KEY = "version_code";
         final int DOESNT_EXIST = -1;
 
@@ -461,6 +463,8 @@ public class Main2Activity extends AppCompatActivity {
                 crossFader.crossFade();
                 return true;*/
             case R.id.action_sign_out:
+                SharedPreferences settings = getSharedPreferences("pref_data", Context.MODE_PRIVATE);
+                settings.edit().clear().apply();
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, PhoneNumberAuthentication.class));

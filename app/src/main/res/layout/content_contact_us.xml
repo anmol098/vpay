@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Contact_us"
+    tools:showIn="@layout/activity_contact_us">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/name1"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#263238"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        app:errorEnabled="true">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/text"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        style="@style/Paragraph"
+        android:textSize="15sp"/>
+    </android.support.design.widget.TextInputLayout>
+</RelativeLayout>

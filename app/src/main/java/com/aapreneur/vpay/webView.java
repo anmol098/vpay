@@ -16,17 +16,14 @@ import android.widget.ProgressBar;
 import com.aapreneur.vpay.app.utils.DualProgressView;
 
 public class webView extends AppCompatActivity {
-    Intent intent = getIntent();
-    private String postUrl = "http://www.aapreneur.com/vpay/faq_android.html";
     private WebView webView;
+    String postURL,title;
     private DualProgressView spinner;
     String ShowOrHideWebViewInitialUse = "show";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       String url=intent.getStringExtra("faq");
-       Log.i("meage",url);
         setContentView(R.layout.activity_faq);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,16 +31,20 @@ public class webView extends AppCompatActivity {
 
         webView = (WebView) findViewById(R.id.webView);
         spinner = (DualProgressView) findViewById(R.id.progressBar1);
-
-
-        webView.setWebViewClient(new CustomWebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(postUrl);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.getSettings().setSupportZoom(true);
-        webView.getSettings().setBuiltInZoomControls(true);
-        webView.getSettings().setDisplayZoomControls(true);
-        webView.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            postURL = extras.getString("URL");
+            title = extras.getString("TITLE");
+            getSupportActionBar().setTitle(title);
+            webView.setWebViewClient(new CustomWebViewClient());
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl(postURL);
+            webView.setHorizontalScrollBarEnabled(false);
+            webView.getSettings().setSupportZoom(true);
+            webView.getSettings().setBuiltInZoomControls(true);
+            webView.getSettings().setDisplayZoomControls(true);
+            webView.setOverScrollMode(WebView.OVER_SCROLL_NEVER);
+        }
     }
     private class CustomWebViewClient extends WebViewClient {
 
