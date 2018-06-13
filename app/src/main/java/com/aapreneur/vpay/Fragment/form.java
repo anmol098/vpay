@@ -308,10 +308,11 @@ public class form extends Fragment{
 
                                                     }else if(promo_amt>Integer.parseInt(promo_upper_limit)){
                                                         Toast.makeText(getContext(),"Sorry Maximum Transaction amount Should be less then ₹"+promo_upper_limit,Toast.LENGTH_LONG).show();
-                                                    }
-                                                    else if(!input.getText().toString().trim().equalsIgnoreCase(promo_code)){
+                                                    } else if(!input.getText().toString().trim().equalsIgnoreCase(promo_code)){
                                                         Toast.makeText(getActivity(), "Invalid Promo Code or Promo Code Not Active", Toast.LENGTH_LONG).show();
 
+                                                    } else if (!count.equals(txnNum)) {
+                                                        Toast.makeText(getActivity(), "Sorry offer is for new users only!!", Toast.LENGTH_LONG).show();
                                                     }
                                                 }
                                             });

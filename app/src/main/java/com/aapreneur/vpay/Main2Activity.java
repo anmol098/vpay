@@ -469,9 +469,9 @@ public class Main2Activity extends AppCompatActivity {
                 finish();
                 startActivity(new Intent(this, PhoneNumberAuthentication.class));
                 return true;
-            /*case R.id.refresh:
-                onBackPressed();
-                return true;*/
+            case R.id.invite:
+                startActivity(new Intent(this, Invite.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

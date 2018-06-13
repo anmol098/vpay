@@ -8,5 +8,9 @@
         android:orderInCategory="100"
         android:title="Sign Out"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/invite"
+        android:orderInCategory="200"
+        android:title="Invite"
+        app:showAsAction="never" />
 </menu>

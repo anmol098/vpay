@@ -56,16 +56,32 @@
             android:textColorHighlight="@color/colorPrimary" />
     </android.support.design.widget.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonshape"
+            android:text="Upload Profile Picture"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
         android:background="@drawable/buttonshape"
         android:text="Next"
         android:textColor="#FFFFFF"
+        android:layout_marginLeft="40dp"
         android:textSize="25sp" />
+    </LinearLayout>
 
 </RelativeLayout>

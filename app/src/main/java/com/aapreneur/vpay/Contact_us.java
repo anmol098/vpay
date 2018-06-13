@@ -21,6 +21,7 @@ public class Contact_us extends AppCompatActivity {
         setContentView(R.layout.activity_contact_us);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         details="Device Name: "+ Build.MANUFACTURER+Build.MODEL+"\nAndroid Version: "+Build.VERSION.RELEASE+"\nApp Version: "+BuildConfig.VERSION_CODE;
         message = (EditText)findViewById(R.id.text);

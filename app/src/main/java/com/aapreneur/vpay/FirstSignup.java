@@ -111,6 +111,12 @@ public class FirstSignup extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter Your Name!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Submit();
+            }
+        });
+        findViewById(R.id.upload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 requestStoragePermission();
                 if(isPremissonGranted) {
                     showFileChooser();

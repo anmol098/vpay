@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aapreneur.vpay">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,13 +31,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
         <!-- [END fcm_default_channel] -->
-        <activity android:name=".PhoneNumberAuthentication">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".PhoneNumberAuthentication" />
         <activity android:name=".FirstSignup" />
         <activity
             android:name=".bank_details"
@@ -93,7 +88,29 @@
         <activity
             android:name=".Contact_us"
             android:label="@string/title_activity_contact_us"
-            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
+            android:parentActivityName=".Main2Activity"
+            android:theme="@style/MyMaterialTheme.NoActionBar" />
+        <activity android:name=".Splash">
+            <tools:validation testUrl="http://www.aapreneur.com/vpay" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.aapreneur.com"
+                    android:path="/vpay"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Invite"></activity>
     </application>
 
 </manifest>

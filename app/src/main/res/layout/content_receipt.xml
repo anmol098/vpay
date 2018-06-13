@@ -16,152 +16,159 @@
         <include layout="@layout/toolbar"/>
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#ffffff">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-
-
-
-            <pl.droidsonroids.gif.GifTextView
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="12dp"
-                android:layout_marginBottom="2dp"
-                android:background="@drawable/check"
-                />
-
-
-
-        <TextView
-            android:id="@+id/paymentGateway"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Normal purchase"
-            android:textColor="#000"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:id="@+id/amount"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:text="7.85"
-                android:textSize="37sp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:background="#b1b1b1"
-            android:layout_marginTop="30dp" />
-
-        <include layout = "@layout/pay_pending"/>
-
-        <LinearLayout
-            android:id="@+id/paymentDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:id="@+id/Amount_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:layout_gravity="center"
-                android:text="$ 7.85"
-                android:textSize="37sp"
-                android:textAlignment="center"/>
-            <TextView
-                android:id="@+id/remarks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transfered to your Bank"
-                android:layout_gravity="center"
-                android:textAlignment="center"/>
-            <TextView
-                android:id="@+id/UTR"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UTR #814609001536"
-                android:layout_gravity="center"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
+                android:background="#ffffff"
+                android:orientation="vertical">
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:background="#b1b1b1"
-            android:layout_marginTop="30dp"/>
-
-        <include layout="@layout/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:background="#b1b1b1"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp"/>
+                <pl.droidsonroids.gif.GifTextView
+                    android:layout_width="200dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/check" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/paymentGateway"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="Normal purchase"
+                    android:textColor="#000"
+                    android:textSize="15sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:text="Total"
-                android:textColor="#000"
-                android:textSize="12sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/amount"
+                        style="@style/Rupees"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7.85"
+                        android:textColor="#000"
+                        android:textSize="37sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#b1b1b1" />
+
+                <include layout="@layout/pay_pending" />
+
+                <LinearLayout
+                    android:id="@+id/paymentDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/Amount_1"
+                            style="@style/Rupees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="$ 7.85"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:textSize="37sp" />
+
+                        <TextView
+                            android:id="@+id/remarks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Transfered to your Bank"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/UTR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="UTR #814609001536"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/paybackAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:text="7.85"
-                android:textColor="#000"
-                android:textSize="12sp" />
-        </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginTop="30dp"
+                        android:background="#b1b1b1" />
 
-        </LinearLayout>
+                    <include
+                        layout="@layout/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.7dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#b1b1b1" />
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
 
-    </LinearLayout>
-    </ScrollView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:text="Total"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+
+
+                        <TextView
+                            android:id="@+id/paybackAmount"
+                            style="@style/Rupees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:text="7.85"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

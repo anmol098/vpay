@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.app.utils.SystemUtils;
 
 
@@ -61,6 +62,10 @@ public class receipt extends AppCompatActivity {
 
 
         TVamount.setText(amount);
+        amt.setText(amount);
+        TVutr.setText(getString(R.string.utr, utr));
+        TVfees.setText(getString(R.string.fees, fees));
+        paybackAmount.setText(payback);
 
         if(mode.equals("paytm"))
             paymentGateway.setText("Paid Using Paytm Wallet");
@@ -87,12 +92,6 @@ public class receipt extends AppCompatActivity {
             pendingPay.setVisibility(View.VISIBLE);
             payDetails.setVisibility(View.GONE);
         }
-        else{
-            amt.setText(amount);
-            TVutr.setText(getString(R.string.utr,utr));
-            TVfees.setText(getString(R.string.fees,fees));
-            paybackAmount.setText(payback);
-        }
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +102,6 @@ public class receipt extends AppCompatActivity {
         /*menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });*/
 
