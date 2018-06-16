@@ -110,7 +110,8 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".Invite"></activity>
+        <activity android:name=".Invite" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,10 @@
 package com.aapreneur.vpay.Resources;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import org.json.JSONArray;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,8 +42,7 @@ public class Configuration {
     public static final String KEY_ACC_STATUS = "aStatus";
     public static final String KEY_ORDER_ID = "uOrderid";
     public static final String KEY_MODE = "mode";
-
-    //firebase storage constants
+    public static final String KEY_REFERRAL = "referral";
     public static final String STORAGE_PATH_UPLOADS = "uploads/";
     public static final String DATABASE_PATH_UPLOADS = "uploads";
 
@@ -63,12 +59,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=read&uId="+email)
                     .build();
             response = client.newCall(request).execute();
-            // Log.e(TAG,"response from gs"+response.body().string());
             return new JSONArray(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -79,12 +73,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=recent&uId="+id)
                     .build();
             response = client.newCall(request).execute();
-            // Log.e(TAG,"response from gs"+response.body().string());
             return new JSONArray(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -95,12 +87,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=count&uId="+id)
                     .build();
             response = client.newCall(request).execute();
-            // Log.e(TAG,"response from gs"+response.body().string());
             return new JSONArray(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -111,12 +101,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=update&uId="+id+"&status="+status)
                     .build();
             response = client.newCall(request).execute();
-            //    Log.e(TAG,"response from gs"+response.body().string());
             return new JSONObject(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -127,12 +115,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=addRef&orderId="+id+"&refId="+status+"&name="+name)
                     .build();
             response = client.newCall(request).execute();
-            //    Log.e(TAG,"response from gs"+response.body().string());
             return new JSONObject(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -143,12 +129,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=getAccount&id="+email)
                     .build();
             response = client.newCall(request).execute();
-            // Log.e(TAG,"response from gs"+response.body().string());
             return new JSONArray(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }
@@ -159,12 +143,10 @@ public class Configuration {
                     .url(APP_SCRIPT_WEB_APP_URL+"?action=getProfile&id="+email)
                     .build();
             response = client.newCall(request).execute();
-            // Log.e(TAG,"response from gs"+response.body().string());
             return new JSONArray(response.body().string());
 
 
         } catch (@NonNull IOException | JSONException e) {
-            Log.e(TAG, "recieving null " + e.getLocalizedMessage());
         }
         return null;
     }

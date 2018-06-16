@@ -7,44 +7,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-
-
-
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.graphics.Color;
-import android.net.Uri;
-
-
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.aapreneur.vpay.Fragment.add_ref_no;
 import com.aapreneur.vpay.Fragment.bank;
 import com.aapreneur.vpay.Fragment.form;
 import com.aapreneur.vpay.Fragment.profile;
-import com.aapreneur.vpay.Resources.MyDataModel;
+import com.aapreneur.vpay.app.utils.CrossfadeWrapper;
+import com.aapreneur.vpay.app.utils.SystemUtils;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.crossfader.Crossfader;
 import com.mikepenz.crossfader.util.UIUtils;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
@@ -56,27 +49,19 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.MiniDrawer;
-import com.aapreneur.vpay.app.utils.CrossfadeWrapper;
-import com.aapreneur.vpay.app.utils.SystemUtils;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.mikepenz.materialdrawer.model.SwitchDrawerItem;
-import com.mikepenz.materialdrawer.model.ToggleDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
-import com.mikepenz.aboutlibraries.Libs;
-import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
-import com.mikepenz.octicons_typeface_library.Octicons;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,8 +70,7 @@ import org.json.JSONObject;
 
 public class Main2Activity extends AppCompatActivity {
 
-    String email,account,ifsc;
-
+    String email, account, ifsc;
 
 
     private static final int PROFILE_SETTING = 1;
@@ -103,27 +87,26 @@ public class Main2Activity extends AppCompatActivity {
     FirebaseUser user = auth.getCurrentUser();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         // Handle Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         checkFirstRun();
         SharedPreferences prefs = getSharedPreferences("pref_data", MODE_PRIVATE);
-        String count= prefs.getString("total", "0");
+        String count = prefs.getString("total", "0");
 
 
         String number = user.getPhoneNumber();
-        if(number!= null)
+        if (number != null)
             FirebaseMessaging.getInstance().subscribeToTopic(number.substring(1));
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
-            String channelId  = getString(R.string.default_notification_channel_id);
+            String channelId = getString(R.string.default_notification_channel_id);
             String channelName = getString(R.string.default_notification_channel_name);
             NotificationManager notificationManager =
                     getSystemService(NotificationManager.class);
@@ -132,12 +115,6 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
-        if (getIntent().getExtras() != null) {
-            for (String key : getIntent().getExtras().keySet()) {
-                Object value = getIntent().getExtras().get(key);
-                Log.d("TAG", "Key: " + key + " Value: " + value);
-            }
-        }
 
 
 
@@ -172,19 +149,10 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-        // Create a few sample profile
-        // NOTE you have to define the loader logic too. See the CustomApplication for more details
         final IProfile profile = new ProfileDrawerItem()
                 .withName(user.getDisplayName())
                 .withEmail(user.getPhoneNumber())
                 .withIcon(user.getPhotoUrl());
-
 
 
         // Create the AccountHeader
@@ -264,6 +232,11 @@ public class Main2Activity extends AppCompatActivity {
                                 .withIcon(GoogleMaterial.Icon.gmd_business_center)
                                 .withTag("contact")
                                 .withIdentifier(6),
+                        new SecondaryDrawerItem()
+                                .withName("Invite Friends")
+                                .withIcon(FontAwesome.Icon.faw_gift)
+                                .withTag("invite")
+                                .withIdentifier(10),
                         new SectionDrawerItem()
                                 .withName("ABOUT"),
                         new SecondaryDrawerItem()
@@ -292,8 +265,7 @@ public class Main2Activity extends AppCompatActivity {
                             Intent intent = null;
                             if (drawerItem.getIdentifier() == 8) {
                                 intent = new Intent(Main2Activity.this, privacy.class);
-                            }
-                        else if (drawerItem.getIdentifier() == 9) {
+                            } else if (drawerItem.getIdentifier() == 9) {
                                 new LibsBuilder()
                                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                                         .withActivityTitle("Open Source Credit")
@@ -302,15 +274,18 @@ public class Main2Activity extends AppCompatActivity {
                                         .withAboutVersionShown(true)
                                         .withAboutDescription(getString(R.string.app_desc))
                                         .withLicenseShown(true)
+                                        .withFields(R.string.class.getFields())
                                         .start(Main2Activity.this);
                             } else if (drawerItem.getIdentifier() == 7) {
                                 intent = new Intent(Main2Activity.this, faq.class);
-                            }else if (drawerItem.getIdentifier() == 5) {
+                            } else if (drawerItem.getIdentifier() == 5) {
                                 intent = new Intent(Main2Activity.this, webView.class);
-                                intent.putExtra("URL","http://www.aapreneur.com/vpay/how-it-works.php");
-                                intent.putExtra("TITLE","HOW IT WORKS");
-                            }else if (drawerItem.getIdentifier() == 6) {
+                                intent.putExtra("URL", "http://www.aapreneur.com/vpay/how-it-works.php");
+                                intent.putExtra("TITLE", "HOW IT WORKS");
+                            } else if (drawerItem.getIdentifier() == 6) {
                                 intent = new Intent(Main2Activity.this, Contact_us.class);
+                            } else if (drawerItem.getIdentifier() == 10) {
+                                intent = new Intent(Main2Activity.this, Invite.class);
                             }
                             if (intent != null) {
                                 Main2Activity.this.startActivity(intent);
@@ -387,8 +362,8 @@ public class Main2Activity extends AppCompatActivity {
     }
 
 
-
     private Fragment mCurrentFragment;
+
     private void switchMenu(PrimaryDrawerItem item) {
         String tag = item.getName().getText(this);
 
@@ -398,8 +373,7 @@ public class Main2Activity extends AppCompatActivity {
             if (fragment == mCurrentFragment) return;
 
             mFragmentManager.beginTransaction().show(fragment).detach(fragment).attach(fragment).commit();
-        }
-        else {
+        } else {
             fragment = Fragment.instantiate(this, (String) item.getTag());
             mFragmentManager.beginTransaction().add(R.id.content_frame, fragment, tag).commit();
         }
@@ -467,32 +441,35 @@ public class Main2Activity extends AppCompatActivity {
                 settings.edit().clear().apply();
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(this, PhoneNumberAuthentication.class));
+                startActivity(new Intent(this, MainActivity.class));
                 return true;
-            case R.id.invite:
-                startActivity(new Intent(this, Invite.class));
+            case R.id.action_rate:
+                Uri uriUrl = Uri.parse("vpay.page.link/newinstall");
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    class ReadProfile extends AsyncTask< Void, Void, Void > {
+    class ReadProfile extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
-        int jIndex=0;
+        int jIndex = 0;
         String name;
         FirebaseAuth mAuth;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
 
-
         @Nullable
         @Override
-        public Void doInBackground(Void...params) {
+        public Void doInBackground(Void... params) {
             mAuth = FirebaseAuth.getInstance();
             FirebaseUser user = mAuth.getCurrentUser();
             JSONArray jsonArray = com.aapreneur.vpay.Resources.Configuration.readProfile(user.getUid());
@@ -523,6 +500,7 @@ public class Main2Activity extends AppCompatActivity {
             }
             return null;
         }
+
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
@@ -531,7 +509,8 @@ public class Main2Activity extends AppCompatActivity {
             editor.apply();
         }
     }
-    class ReadAccount extends AsyncTask< Void, Void, Void > {
+
+    class ReadAccount extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
         int jIndex = 0;
@@ -589,7 +568,8 @@ public class Main2Activity extends AppCompatActivity {
             editor.apply();
         }
     }
-    class ReadCount extends AsyncTask< Void, Void, Void > {
+
+    class ReadCount extends AsyncTask<Void, Void, Void> {
 
         ProgressDialog dialog;
         int jIndex = 0;
@@ -620,7 +600,7 @@ public class Main2Activity extends AppCompatActivity {
                                 JSONObject innerObject = jsonArray.getJSONObject(jIndex);
 
                                 String id = innerObject.getString("id");
-                                 count= innerObject.getString("count");
+                                count = innerObject.getString("count");
                             }
                         }
                     }

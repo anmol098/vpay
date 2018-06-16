@@ -4,33 +4,25 @@ package com.aapreneur.vpay.Fragment;
  * Created by Anmol Pratap Singh on 28-01-2018.
  */
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.Resources.Configuration;
 import com.aapreneur.vpay.Resources.MyArrayAdapter;
+import com.aapreneur.vpay.Resources.MyDataModel;
 import com.aapreneur.vpay.receipt;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,9 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import com.aapreneur.vpay.R;
-import com.aapreneur.vpay.Resources.MyDataModel;
 
 import static android.view.View.GONE;
 
@@ -71,9 +60,9 @@ public class bank extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bank, container, false);
         list = new ArrayList < > ();
         adapter = new MyArrayAdapter(getActivity(), list);
-        listView = (ListView) view.findViewById(R.id.listView);
-        linearLayout = (LinearLayout)view.findViewById(R.id.view_empty);
-        relativeLayout =(RelativeLayout)view.findViewById(R.id.activity_main);
+        listView = view.findViewById(R.id.listView);
+        linearLayout = view.findViewById(R.id.view_empty);
+        relativeLayout = view.findViewById(R.id.activity_main);
         listView.setAdapter(adapter);
         new ReadData1().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -134,13 +123,9 @@ public class bank extends Fragment {
             FirebaseUser user = mAuth.getCurrentUser();
             JSONArray jsonArray = Configuration.recentTransaction(user.getUid());
             try {
-                /**
-                 * Check Whether Its NULL???
-                 */
+
                 if (jsonArray != null) {
-                    /**
-                     * Check Length...
-                     */
+
                     if (jsonArray.length() > 0) {
 
                         int lenArray = jsonArray.length();
@@ -173,12 +158,6 @@ public class bank extends Fragment {
                                 model.setFees(fees);
                                 model.setPayback(payback);
 
-                                Log.e("s",payback);
-                                //                              model.setImage(image);
-
-                                /**
-                                 * Adding name and phone concatenation in List...
-                                 */
                                 list.add(model);
                             }
                         }
@@ -187,7 +166,6 @@ public class bank extends Fragment {
 
                 }
             } catch (JSONException je) {
-                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
             }
             return null;
         }

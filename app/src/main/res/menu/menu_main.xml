@@ -9,8 +9,8 @@
         android:title="Sign Out"
         app:showAsAction="never" />
     <item
-        android:id="@+id/invite"
-        android:orderInCategory="200"
-        android:title="Invite"
+        android:id="@+id/action_rate"
+        android:orderInCategory="100"
+        android:title="Rate Us"
         app:showAsAction="never" />
 </menu>

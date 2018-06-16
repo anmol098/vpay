@@ -1,32 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <include layout="@layout/toolbar" />
+
+    <com.alexzh.circleimageview.CircleImageView
+        android:id="@+id/profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img"
+        app:view_borderColor="#cccccc"
+        app:view_borderWidth="2dp"
+        app:view_shadowDx="2dp"
+        app:view_shadowDy="0dp"
+        app:view_shadowRadius="2dp"
+
+        />
 
     <TextView
-        android:id="@+id/unique"
+        android:id="@+id/text"
+        style="@style/Rupees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="unique id"
-        android:textSize="20sp" />
+        android:layout_below="@id/profile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/refer"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/paragraph"
+        style="@style/Paragraph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="18dp"
+        android:fadingEdge="horizontal"
+        android:text="@string/refertext"
+        android:textAlignment="inherit"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/referal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paragraph"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="YOUR REFERRAL CODE"
+        android:textAppearance="@android:style/TextAppearance.Holo.Large.Inverse"
+        android:textColor="#debdbd" />
+
+
+    <RelativeLayout
+
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/referal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#6ae1fc">
+
+        <TextView
+            android:id="@+id/unique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="GfdRfgSt"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/invite_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:text="@string/invite_friends"
-        android:theme="@style/ThemeOverlay.MyBlueButton" />
+        android:background="#ffeb3b"
+        android:drawableTint="@color/textred"
+        android:drawableTop="@android:drawable/ic_menu_share"
+        android:text="SHARE NOW"
+        android:textColor="@color/textred"
+        android:textSize="20sp" />
+
 
 </RelativeLayout>

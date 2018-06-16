@@ -19,13 +19,12 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -81,11 +80,11 @@ public class form extends Fragment{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form, container, false);
 
-        amount = (EditText) view.findViewById(R.id.amount_1);
-        buttonProceed = (Button) view.findViewById(R.id.proceed);
-        til = (TextInputLayout) view.findViewById(R.id.amount);
-        paytmCheck = (CheckBox)view.findViewById(R.id.paytmCheck);
-        creditCheck = (CheckBox)view.findViewById(R.id.creditCheck);
+        amount = view.findViewById(R.id.amount_1);
+        buttonProceed = view.findViewById(R.id.proceed);
+        til = view.findViewById(R.id.amount);
+        paytmCheck = view.findViewById(R.id.paytmCheck);
+        creditCheck = view.findViewById(R.id.creditCheck);
 
         paytmCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,17 +104,15 @@ public class form extends Fragment{
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
 
-        long cacheExpiration = 0;
+        long cacheExpiration = 3600;
+
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled())
+            cacheExpiration = 0;
 
         mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Fetch Succeeded",
-                            Toast.LENGTH_SHORT).show();
-
-                    // After config data is successfully fetched, it must be activated before newly fetched
-                    // values are returned.
                     mFirebaseRemoteConfig.activateFetched();
 
                     upper_limit = mFirebaseRemoteConfig.getString("upper_limit");
@@ -123,8 +120,7 @@ public class form extends Fragment{
                     txnNum = mFirebaseRemoteConfig.getString("txnNum");
                     promo_upper_limit = mFirebaseRemoteConfig.getString("promo_upper_limit");
                 } else {
-                    Toast.makeText(getActivity(), "Fetch Failed",
-                            Toast.LENGTH_SHORT).show();
+
                 }
 
             }
@@ -227,7 +223,7 @@ public class form extends Fragment{
                                 String id = innerObject.getString("id");
                                 fee = innerObject.getString("fee");
                                 creditfee = innerObject.getString("creditfee");
-                                Log.i("myApp","message"+fee );
+
                             }
                         }
                     }
@@ -237,7 +233,6 @@ public class form extends Fragment{
 
                 }
             } catch (JSONException je) {
-                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
             }
             return null;
         }
@@ -317,12 +312,6 @@ public class form extends Fragment{
                                                 }
                                             });
                                     alert.show();
-
-
-
-
-
-
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -402,11 +391,8 @@ public class form extends Fragment{
 
                                 String id = innerObject.getString("id");
                                 name = innerObject.getString("name");
-                                Log.i("myApp","message"+name );
                                 number = innerObject.getString("number");
-                                Log.i("myApp","message"+number );
                                 ifsc = innerObject.getString("ifsc");
-                                Log.i("myApp","message"+ifsc );
                             }
                         }
                     }
@@ -433,7 +419,6 @@ public class form extends Fragment{
 
                 }
             } catch (JSONException je) {
-                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
             }
             return null;
         }

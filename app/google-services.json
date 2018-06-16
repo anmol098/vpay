@@ -15,12 +15,24 @@
       },
       "oauth_client": [
         {
+          "client_id": "230534483047-04nnm69fes8uch01iju3nds70c7j3eh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aapreneur.vpay",
+            "certificate_hash": "68d652ff6be94ed9e84f9bcb6d98c40dc7805c6a"
+          }
+        },
+        {
           "client_id": "230534483047-t1ckt0psdvnkea25gpvnjs180rs8na0q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.aapreneur.vpay",
             "certificate_hash": "dae768b14f2ecdab145379b6e2fc6bdceabbfc14"
           }
+        },
+        {
+          "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",

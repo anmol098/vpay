@@ -14,15 +14,16 @@
         android:orientation="vertical"
         android:paddingBottom="10dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginRight="15dp">
         <android.support.design.widget.TextInputLayout
             android:id="@+id/name1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/email1"
             android:textColorHint="#263238"
             android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_layout"
+            android:padding="30dp"
+            app:hintTextAppearance="@style/MyAppearance"
             app:errorEnabled="true">
             <EditText
                 android:id="@+id/name"
@@ -30,8 +31,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:hint="Account Holder Name"
-                android:paddingTop="10dp"
-                android:background="@drawable/edittext_layout"
+                android:ems="10"
                 android:textColor="@color/colorPrimary"
                 android:textColorHighlight="@color/colorPrimary"/>
         </android.support.design.widget.TextInputLayout>
@@ -43,7 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name1"
             android:textColorHint="#263238"
-            android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_layout"
+            android:padding="30dp"
+            app:hintTextAppearance="@style/MyAppearance"
             app:errorEnabled="true">
             <EditText
                 android:id="@+id/account_number_1"
@@ -52,7 +54,7 @@
                 android:inputType="number"
                 android:hint="Account Number"
                 android:paddingTop="10dp"
-                android:background="@drawable/edittext_layout"
+
                 android:textColor="@color/colorPrimary"
                 android:textColorHighlight="@color/colorPrimary"/>
         </android.support.design.widget.TextInputLayout>
@@ -63,6 +65,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/account_number"
             android:textColorHint="#263238"
+            android:background="@drawable/edittext_layout"
+            android:padding="30dp"
+            app:hintTextAppearance="@style/MyAppearance"
             app:errorEnabled="true">
             <EditText
                 android:id="@+id/IFSC_1"
@@ -70,8 +75,6 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:hint="IFSC Code"
-                android:paddingTop="10dp"
-                android:background="@drawable/edittext_layout"
                 android:textColor="@color/colorPrimary"
                 android:textColorHighlight="@color/colorPrimary"/>
         </android.support.design.widget.TextInputLayout>
@@ -80,10 +83,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/proceed"
-            android:layout_below="@id/IFSC"
-            android:text="Proceed"
             android:background="@drawable/buttonshape"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="40dp"
             android:textColor="#FFFFFF"
-            android:textSize="25sp"/>
+            android:text="Next"
+            android:textSize="25sp" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -1,23 +1,20 @@
 package com.aapreneur.vpay;
 
-import android.app.AlertDialog;
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aapreneur.vpay.Resources.Configuration;
@@ -30,8 +27,6 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import com.firebase.client.authentication.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,20 +38,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.DexterError;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.karumi.dexter.listener.single.PermissionListener;
 
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +62,7 @@ public class FirstSignup extends AppCompatActivity {
     String name;
     String id;
     String mobile;
+    String referral = "null";
     boolean isPremissonGranted=false;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
@@ -88,10 +78,38 @@ public class FirstSignup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_signup);
 
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextName = (EditText) findViewById(R.id.name);
+        editTextEmail = findViewById(R.id.email);
+        editTextName = findViewById(R.id.name);
         id = user.getUid();
         mobile = user.getPhoneNumber();
+        TextView textRefer = findViewById(R.id.referral);
+        textRefer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder alert = new AlertDialog.Builder(FirstSignup.this, R.style.CustomDialogTheme);
+                final EditText input = new EditText(FirstSignup.this);
+                input.setHint("Referral code");
+                alert.setTitle("Enter Referral Code ");
+                alert.setView(input);
+                LinearLayout layout = new LinearLayout(FirstSignup.this);
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.addView(input);
+
+                alert.setView(layout);
+                alert.setPositiveButton("Submit",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                referral = input.getText().toString().trim();
+
+
+                            }
+                        });
+                alert.show();
+            }
+
+        });
+
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Configuration.DATABASE_PATH_UPLOADS);
@@ -111,6 +129,7 @@ public class FirstSignup extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter Your Name!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                updateprofile();
                 Submit();
             }
         });
@@ -259,6 +278,7 @@ public class FirstSignup extends AppCompatActivity {
         final String userId = id;
         final String userMobile = mobile;
         final String userImage = fileTextUrl;
+        final String userReferral = referral;
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.ADD_USER_URL,
@@ -289,6 +309,7 @@ public class FirstSignup extends AppCompatActivity {
                 params.put(Configuration.KEY_EMAIL,userEmail);
                 params.put(Configuration.KEY_MOBILE,userMobile);
                 params.put(Configuration.KEY_IMAGE,userImage);
+                params.put(Configuration.KEY_REFERRAL, userReferral);
                 params.put(Configuration.KEY_RESULT,"1");
                 return params;
             }

@@ -89,9 +89,9 @@ private static class ViewHolder {
     }
 
     public static ViewHolder create(RelativeLayout rootView) {
-        TextView textViewDate = (TextView) rootView.findViewById(R.id.date);
-        TextView textViewAmount = (TextView) rootView.findViewById(R.id.amount);
-        TextView textViewRemark = (TextView) rootView.findViewById(R.id.paragraph);
+        TextView textViewDate = rootView.findViewById(R.id.date);
+        TextView textViewAmount = rootView.findViewById(R.id.amount);
+        TextView textViewRemark = rootView.findViewById(R.id.paragraph);
 
         return new ViewHolder(rootView, textViewDate,textViewAmount,textViewRemark);
     }

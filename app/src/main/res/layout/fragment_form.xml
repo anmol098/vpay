@@ -58,6 +58,7 @@
             android:padding="30dp"
             android:textColorHint="@color/colorPrimary"
             android:background="@drawable/edittext_layout"
+            app:hintTextAppearance="@style/MyAppearance"
             app:errorEnabled="true">
 
             <EditText

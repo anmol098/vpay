@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:clipToPadding="false"
+    tools:context=".MainActivity">
+
+    <com.alexzh.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp"
+        android:src="@mipmap/ic_launcher"
+        app:view_borderColor="#cccccc"
+        app:view_borderWidth="2dp"
+        app:view_shadowDx="2dp"
+        app:view_shadowDy="0dp"
+        app:view_shadowRadius="2dp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:text="VPAY"
+        android:textColor="@color/Wheat"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="99dp"
+        android:background="@drawable/buttonlogin"
+        android:drawableLeft="@android:drawable/stat_sys_phone_call"
+        android:elevation="10dp"
+        android:text="Sign in using Phone number" />
+
+</RelativeLayout>

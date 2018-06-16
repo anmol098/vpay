@@ -152,5 +152,9 @@
 
     <string name="google_play_services_error">Google Play Services Error</string>
 
+    <string name="title_activity_main">MainActivity</string>
+    <string name="refer">Refer Friends &amp; Earn</string>
+    <string name="refertext">Ask your friends to signup with your referral code and make an initial payment. Once done both you and your friend each earn ₹20.</string>
+
 </resources>
 

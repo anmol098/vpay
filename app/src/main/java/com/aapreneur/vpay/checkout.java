@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -64,7 +63,7 @@ public class checkout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         createNotificationChannel();
@@ -89,7 +88,10 @@ public class checkout extends AppCompatActivity {
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
 
-        long cacheExpiration = 0;
+        long cacheExpiration = 3600;
+
+        if (mFirebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled())
+            cacheExpiration = 0;
 
         mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(this, new OnCompleteListener<Void>() {
             @Override
@@ -112,33 +114,33 @@ public class checkout extends AppCompatActivity {
             }
         });
 
-        account = (TextView)findViewById(R.id.bank);
+        account = findViewById(R.id.bank);
         account.setText(number);
 
-        ifsc = (TextView)findViewById(R.id.ifsc);
+        ifsc = findViewById(R.id.ifsc);
         ifsc.setText(IFSC);
 
-        txnAmount = (TextView)findViewById(R.id.amount);
+        txnAmount = findViewById(R.id.amount);
         txnAmount.setText(amount);
 
-        fees = (TextView)findViewById(R.id.fees);
+        fees = findViewById(R.id.fees);
         fees.setText(fee);
 
-        AmtPayback = (TextView)findViewById(R.id.payback);
+        AmtPayback = findViewById(R.id.payback);
         AmtPayback.setText(payback);
 
-        date = (TextView)findViewById(R.id.date);
+        date = findViewById(R.id.date);
         date.setText(getCurrentDate());
 
-        ordernumber = (TextView)findViewById(R.id.ordernumber);
+        ordernumber = findViewById(R.id.ordernumber);
         ordernumber.setText(getOrderId());
 
          phno = user.getPhoneNumber().substring(3);
 
-        TVnumber = (TextView)findViewById(R.id.number);
+        TVnumber = findViewById(R.id.number);
         TVnumber.setText(phno);
 
-        image = (ImageView)findViewById(R.id.image);
+        image = findViewById(R.id.image);
         if(mode.equals("paytm")){
             image.setImageDrawable(getResources().getDrawable(R.drawable.ic_if_paytm));
         }

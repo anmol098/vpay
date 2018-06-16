@@ -1,40 +1,25 @@
 package com.aapreneur.vpay.Fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aapreneur.vpay.PhoneNumberAuthentication;
 import com.aapreneur.vpay.R;
 import com.aapreneur.vpay.Resources.Configuration;
-import com.aapreneur.vpay.Resources.MyArrayAdapter;
 import com.aapreneur.vpay.Resources.MyArrayAdapterRef;
 import com.aapreneur.vpay.Resources.MyDataModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +31,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
 import static android.view.View.GONE;
 
 
@@ -78,9 +62,9 @@ public class add_ref_no extends Fragment {
         View view = inflater.inflate(R.layout.fragment_addref, container, false);
         list = new ArrayList< >();
         adapter = new MyArrayAdapterRef(getActivity(), list);
-        listView = (ListView) view.findViewById(R.id.listView);
-        linearLayout = (LinearLayout)view.findViewById(R.id.view_empty);
-        relativeLayout =(RelativeLayout)view.findViewById(R.id.activity_main);
+        listView = view.findViewById(R.id.listView);
+        linearLayout = view.findViewById(R.id.view_empty);
+        relativeLayout = view.findViewById(R.id.activity_main);
         listView.setAdapter(adapter);
         new ReadData1().execute();
 
@@ -140,11 +124,7 @@ public class add_ref_no extends Fragment {
             else
                 jIndex = x;
 
-            /*dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Loading....");
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setCancelable(false);
-            dialog.show();*/
+
             relativeLayout.setVisibility(View.VISIBLE);
         }
 
@@ -155,13 +135,9 @@ public class add_ref_no extends Fragment {
             FirebaseUser user = mAuth.getCurrentUser();
             JSONArray jsonArray = Configuration.recentTransaction(user.getUid());
             try {
-                /**
-                 * Check Whether Its NULL???
-                 */
+
                 if (jsonArray != null) {
-                    /**
-                     * Check Length...
-                     */
+
                     if (jsonArray.length() > 0) {
 
                         int lenArray = jsonArray.length();
@@ -192,7 +168,7 @@ public class add_ref_no extends Fragment {
 
                 }
             } catch (JSONException je) {
-                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
+
             }
             return null;
         }

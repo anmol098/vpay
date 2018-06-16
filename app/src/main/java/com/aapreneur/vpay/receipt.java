@@ -1,23 +1,15 @@
 package com.aapreneur.vpay;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.aapreneur.vpay.R;
-import com.aapreneur.vpay.app.utils.SystemUtils;
 
 
 public class receipt extends AppCompatActivity {
@@ -31,23 +23,21 @@ public class receipt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        paymentGateway = (TextView)findViewById(R.id.paymentGateway);
-        TVamount = (TextView )findViewById(R.id.amount);
-        amount_1 = (TextView)findViewById(R.id.Amount_1);
-        TVremarks = (TextView)findViewById(R.id.remarks);
-        TVutr = (TextView)findViewById(R.id.UTR);
-        amt = (TextView)findViewById(R.id.Amt);
-        TVfees = (TextView)findViewById(R.id.fees);
-        paybackAmount = (TextView)findViewById(R.id.paybackAmount );
-        remarks_pending = (TextView)findViewById(R.id.remarks_pending);
-        payDetails = (LinearLayout)findViewById(R.id.paymentDetails);
-        pendingPay = (LinearLayout)findViewById(R.id.pending_pay);
-        ImageView close = (ImageView)findViewById(R.id.close);
-        ImageView menu = (ImageView)findViewById(R.id.menu);
-
+        paymentGateway = findViewById(R.id.paymentGateway);
+        TVamount = findViewById(R.id.amount);
+        amount_1 = findViewById(R.id.Amount_1);
+        TVremarks = findViewById(R.id.remarks);
+        TVutr = findViewById(R.id.UTR);
+        amt = findViewById(R.id.Amt);
+        TVfees = findViewById(R.id.fees);
+        paybackAmount = findViewById(R.id.paybackAmount);
+        remarks_pending = findViewById(R.id.remarks_pending);
+        payDetails = findViewById(R.id.paymentDetails);
+        pendingPay = findViewById(R.id.pending_pay);
+        ImageView close = findViewById(R.id.close);
 
         Intent intent = getIntent();
         mode = intent.getExtras().getString("MODE");
@@ -71,7 +61,7 @@ public class receipt extends AppCompatActivity {
             paymentGateway.setText("Paid Using Paytm Wallet");
         else if (mode.equals("credit"))
             paymentGateway.setText("Paid Using Credit Card");
-        amount_1.setText(amount);
+        amount_1.setText(payback);
 
 
         if(remarks.equals("0")){
@@ -99,15 +89,9 @@ public class receipt extends AppCompatActivity {
                 finish();
             }
         });
-        /*menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });*/
 
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

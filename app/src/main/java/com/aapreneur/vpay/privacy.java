@@ -2,14 +2,11 @@ package com.aapreneur.vpay;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.aapreneur.vpay.app.utils.DualProgressView;
 
@@ -24,12 +21,12 @@ public class privacy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        webView = (WebView) findViewById(R.id.webView);
-        spinner = (DualProgressView) findViewById(R.id.progressBar1);
+        webView = findViewById(R.id.webView);
+        spinner = findViewById(R.id.progressBar1);
 
 
         webView.setWebViewClient(new CustomWebViewClient());
@@ -48,7 +45,7 @@ public class privacy extends AppCompatActivity {
 
             // only make it invisible the FIRST time the app is run
             if (ShowOrHideWebViewInitialUse.equals("show")) {
-                webview.setVisibility(webview.INVISIBLE);
+                webview.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -58,7 +55,7 @@ public class privacy extends AppCompatActivity {
             ShowOrHideWebViewInitialUse = "hide";
             spinner.setVisibility(View.GONE);
 
-            view.setVisibility(webView.VISIBLE);
+            view.setVisibility(View.VISIBLE);
             super.onPageFinished(view, url);
 
         }

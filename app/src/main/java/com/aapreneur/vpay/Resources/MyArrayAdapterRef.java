@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,14 +17,14 @@ import java.util.List;
  * Created by anmol on 07-04-2018.
  */
 
-public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
+public class MyArrayAdapterRef extends ArrayAdapter<MyDataModel> {
 
-    List< MyDataModel > modelList;
+    List<MyDataModel> modelList;
     Context context;
     private LayoutInflater mInflater;
 
     // Constructors
-    public MyArrayAdapterRef(Context context, List < MyDataModel > objects) {
+    public MyArrayAdapterRef(Context context, List<MyDataModel> objects) {
         super(context, 0, objects);
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -54,21 +53,19 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         vh.textViewTime.setText(item.getTime());
         vh.textViewAmount.setText(item.getAmount());
 
-        if(item.getMode().equals("credit")){
+        if (item.getMode().equals("credit")) {
             vh.imageViewMode.setImageResource(R.drawable.ic_if_payu);
-        }
-        else if(item.getMode().equals("paytm")){
+        } else if (item.getMode().equals("paytm")) {
             vh.imageViewMode.setImageResource(R.drawable.ic_if_paytm);
         }
-        if(item.getPaytmId().equals("")){
+        if (item.getPaytmId().equals("")) {
             vh.textViewParagraph.setText("Click here To Update Refrence Id");
-        }else if(item.getPaytmId()!=""){
-            vh.textViewParagraph.setText("Refrence Id- "+item.getPaytmId());
+        } else if (item.getPaytmId() != "") {
+            vh.textViewParagraph.setText("Refrence Id- " + item.getPaytmId());
         }
 
         return vh.rootView;
     }
-
 
 
     private static class ViewHolder {
@@ -80,9 +77,9 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         public final ImageView imageViewMode;
 
 
-        private ViewHolder(RelativeLayout rootView, TextView textViewDate,TextView textViewTime,TextView textViewAmount,ImageView imageViewMode,TextView textViewParagraph) {
+        private ViewHolder(RelativeLayout rootView, TextView textViewDate, TextView textViewTime, TextView textViewAmount, ImageView imageViewMode, TextView textViewParagraph) {
             this.rootView = rootView;
-            this.textViewParagraph=textViewParagraph;
+            this.textViewParagraph = textViewParagraph;
             this.textViewDate = textViewDate;
             this.textViewAmount = textViewAmount;
             this.textViewTime = textViewTime;
@@ -91,12 +88,12 @@ public class MyArrayAdapterRef extends ArrayAdapter< MyDataModel > {
         }
 
         public static MyArrayAdapterRef.ViewHolder create(RelativeLayout rootView) {
-            TextView textViewDate = (TextView) rootView.findViewById(R.id.textViewDate);
-            TextView textViewTime = (TextView) rootView.findViewById(R.id.time);
-            TextView textViewAmount = (TextView) rootView.findViewById(R.id.textViewAmount);
-            TextView textViewParagraph = (TextView)rootView.findViewById(R.id.paragraph);
-            ImageView imageViewMode = (ImageView) rootView.findViewById(R.id.mode);
-            return new MyArrayAdapterRef.ViewHolder(rootView,textViewDate, textViewTime,textViewAmount,imageViewMode,textViewParagraph);
+            TextView textViewDate = rootView.findViewById(R.id.textViewDate);
+            TextView textViewTime = rootView.findViewById(R.id.time);
+            TextView textViewAmount = rootView.findViewById(R.id.textViewAmount);
+            TextView textViewParagraph = rootView.findViewById(R.id.paragraph);
+            ImageView imageViewMode = rootView.findViewById(R.id.mode);
+            return new MyArrayAdapterRef.ViewHolder(rootView, textViewDate, textViewTime, textViewAmount, imageViewMode, textViewParagraph);
         }
     }
 }

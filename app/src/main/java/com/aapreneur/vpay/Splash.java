@@ -4,28 +4,46 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
+import com.google.firebase.auth.FirebaseAuth;
 import com.viksaa.sssplash.lib.activity.AwesomeSplash;
 import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;
-
-import java.net.InetAddress;
 
 public class Splash extends AwesomeSplash {
 
     //DO NOT OVERRIDE onCreate()!
     //if you need to start some services do it in initSplash()!
-
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     public void initSplash(ConfigSplash configSplash) {
 
         /* you don't have to override every property */
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                if (key.equals("url")) {
+                    /*Intent intent = new Intent(this, webView.class);
+                    intent.putExtra("URL",value);
+                    intent.putExtra("TITLE","VPay");
+                    startActivity(intent);*/
+                    Uri uriUrl = Uri.parse(value);
+                    Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                    finish();
+                }
+                Log.d("TAG", "Key: " + key + " Value: " + value);
+            }
+        }
 
         //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.primary); //any color you want form colors.xml
@@ -54,8 +72,14 @@ public class Splash extends AwesomeSplash {
     @Override
     public void animationsFinished() {
         if (isInternetOn()) {
-            startActivity(new Intent(Splash.this, PhoneNumberAuthentication.class));
-            finish();
+            if (auth.getCurrentUser() != null) {
+                startActivity(new Intent(Splash.this, PhoneNumberAuthentication.class));
+                finish();
+
+            } else {
+                startActivity(new Intent(Splash.this, MainActivity.class));
+                finish();
+            }
         } else {
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

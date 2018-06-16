@@ -20,4 +20,7 @@
     <color name="drawerBackground">#ffe0e0</color>
 
     <color name="Wheat">#F5DEB3</color>
+    <color name="color">#efdd83</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
