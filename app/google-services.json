@@ -1,47 +1,27 @@
 {
   "project_info": {
-    "project_number": "230534483047",
-    "firebase_url": "https://aapreneure.firebaseio.com",
-    "project_id": "aapreneure",
-    "storage_bucket": "aapreneure.appspot.com"
+    "project_number": "1003708901882",
+    "firebase_url": "https://aapreneur-the.firebaseio.com",
+    "project_id": "aapreneur-the",
+    "storage_bucket": "aapreneur-the.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:230534483047:android:548f05bbdab5f54b",
+        "mobilesdk_app_id": "1:1003708901882:android:37b3bd52a1600b75",
         "android_client_info": {
-          "package_name": "com.aapreneur.vpay"
+          "package_name": "c.aapreneur.vpay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "230534483047-04nnm69fes8uch01iju3nds70c7j3eh9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.aapreneur.vpay",
-            "certificate_hash": "68d652ff6be94ed9e84f9bcb6d98c40dc7805c6a"
-          }
-        },
-        {
-          "client_id": "230534483047-t1ckt0psdvnkea25gpvnjs180rs8na0q.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.aapreneur.vpay",
-            "certificate_hash": "dae768b14f2ecdab145379b6e2fc6bdceabbfc14"
-          }
-        },
-        {
-          "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
+          "client_id": "1003708901882-6khlecrhbugdfukhb2s9t88vcdet0r7l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDTrZTi8ROPPbwPkj6HLIqxhEeJy_3DCbo"
+          "current_key": "AIzaSyAYp_-JqD8_NsmBIGsnIgXMXmCFaFUG2Nw"
         }
       ],
       "services": {
@@ -49,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "230534483047-no4ivjkbq06ck163oov49hs3hqgfh868.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

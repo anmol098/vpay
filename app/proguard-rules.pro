@@ -19,7 +19,4 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--dontwarn com.makerman.**
--dontwarn com.fasterxml.**
--dontwarn com.rey.**
--dontwarn com.squareup.**
+-ignorewarnings

@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.aapreneur.vpay.bank_details"
-    tools:showIn="@layout/activity_bank_details">
 
-    <RelativeLayout
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true"
+    android:paddingTop="5dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="56dp">
+
+        <TextView
+            style="@style/Rupees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="Add a New Bank Account"
+            android:textSize="25sp" />
+
+        <TextView
+            style="@style/Paragraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="I would like to receive money in this bank account for all my future transactions"
+            android:textSize="18sp" />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/name1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#263238"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edittext_layout"
-            android:padding="30dp"
-            app:hintTextAppearance="@style/MyAppearance"
-            app:errorEnabled="true">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:hint="Account Holder Name"
-                android:ems="10"
-                android:textColor="@color/colorPrimary"
-                android:textColorHighlight="@color/colorPrimary"/>
+                android:hint="Name"
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -41,53 +51,39 @@
             android:id="@+id/account_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name1"
-            android:textColorHint="#263238"
-            android:background="@drawable/edittext_layout"
-            android:padding="30dp"
-            app:hintTextAppearance="@style/MyAppearance"
-            app:errorEnabled="true">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
             <EditText
                 android:id="@+id/account_number_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:hint="Account Number"
-                android:paddingTop="10dp"
-
-                android:textColor="@color/colorPrimary"
-                android:textColorHighlight="@color/colorPrimary"/>
+                android:inputType="numberSigned" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/IFSC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/account_number"
-            android:textColorHint="#263238"
-            android:background="@drawable/edittext_layout"
-            android:padding="30dp"
-            app:hintTextAppearance="@style/MyAppearance"
-            app:errorEnabled="true">
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
             <EditText
                 android:id="@+id/IFSC_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="IFSC Code"
-                android:textColor="@color/colorPrimary"
-                android:textColorHighlight="@color/colorPrimary"/>
+                android:hint="IFSC"
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/proceed"
+            android:layout_gravity="center"
             android:background="@drawable/buttonshape"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="40dp"
             android:textColor="#FFFFFF"
             android:text="Next"
             android:textSize="25sp" />
-    </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

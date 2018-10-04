@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
-    tools:context="com.aapreneur.vpay.Fragment.form">
+    tools:context="c.aapreneur.vpay.Fragment.form">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Amount (₹)"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="phone"
                 android:textColor="@color/colorPrimary"
                 android:textColorHighlight="@color/colorPrimary" />
         </android.support.design.widget.TextInputLayout>
