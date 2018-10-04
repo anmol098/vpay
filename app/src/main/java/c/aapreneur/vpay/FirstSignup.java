@@ -133,16 +133,6 @@ public class FirstSignup extends AppCompatActivity {
                 } else {
                     editTextEmail.setError(null);
                 }
-
-
-               /* if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(getApplicationContext(), "Enter Your Name!", Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
                 updateprofile();
                 Submit();
             }
@@ -250,7 +240,6 @@ public class FirstSignup extends AppCompatActivity {
                         fileTextUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                         Toast.makeText(getApplicationContext(), "Profile Image Updated Successfully", Toast.LENGTH_LONG).show();
                         updateprofile();
-                        Submit();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

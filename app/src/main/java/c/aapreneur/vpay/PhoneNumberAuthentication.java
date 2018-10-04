@@ -3,6 +3,7 @@ package c.aapreneur.vpay;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -173,6 +174,8 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            SharedPreferences prefs = getSharedPreferences("pref_data", MODE_PRIVATE);
+            String skip = prefs.getString("skip", "0");
             if (result.equals("1")&&status.equals("1")) {
                 startActivity(new Intent(PhoneNumberAuthentication.this,Main2Activity.class));
                 finish();
@@ -180,12 +183,15 @@ public class PhoneNumberAuthentication extends AppCompatActivity {
                 startActivity(new Intent(PhoneNumberAuthentication.this,FirstSignup.class));
                 finish();
 
-            } else if(result.equals("1")&&status.equals("0")){
+            } else if (result.equals("1") && status.equals("0") && skip.equals("0")) {
                 startActivity(new Intent(PhoneNumberAuthentication.this,bank_details.class));
                 finish();
             }else if(result.equals("invalid")&&status.equals("invalid")){
                 Toast.makeText(getApplicationContext(), " Not Connected Some functionality may be disabled", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(PhoneNumberAuthentication.this,Main2Activity.class));
+                finish();
+            } else if ((result.equals("1") && status.equals("0")) || skip.equals("1")) {
+                startActivity(new Intent(PhoneNumberAuthentication.this, Main2Activity.class));
                 finish();
             }
         }

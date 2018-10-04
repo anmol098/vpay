@@ -97,6 +97,7 @@ public class form extends Fragment{
             @Override
             public void onClick(View v) {
                 paytmCheck.setChecked(false);
+                Toast.makeText(getActivity(), "This feature is currently not available. Please check back later.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -139,18 +140,19 @@ public class form extends Fragment{
                 if (amount.getText().toString().equals("")) {
                     til.setError("Please enter a valid amount between ₹100 and ₹"+upper_limit);
                 }else if(Integer.parseInt(amount.getText().toString())< 100){
-                til.setError("Please enter a valid amount between ₹100 and ₹2000");
+                    til.setError("Please enter a valid amount between ₹100 and ₹" + upper_limit);
             }else if (Integer.parseInt(amount.getText().toString())> Integer.parseInt(upper_limit)){
                     til.setError("Please enter a valid amount between ₹100 and ₹"+upper_limit);
                 }
                 else {
                     til.setError(null);
                     if (isInternetOn()) {
-                        if(paytmCheck.isChecked()||creditCheck.isChecked()) {
+                        if (paytmCheck.isChecked()) {
 
                             new ReadData1().execute();
+                            new ReadCount().execute();
                             Snackbar snackbar = Snackbar
-                                    .make(view, "By clicking Ok You Accept to our Terms and Services", Snackbar.LENGTH_SHORT);
+                                    .make(view, "By clicking Ok You Accept to our Terms of Services", Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
                         else{
@@ -308,7 +310,7 @@ public class form extends Fragment{
                                                         Toast.makeText(getActivity(), "Invalid Promo Code or Promo Code Not Active", Toast.LENGTH_LONG).show();
 
                                                     } else if (!count.equals(txnNum)) {
-                                                        Toast.makeText(getActivity(), "Sorry offer is for new users only!!", Toast.LENGTH_LONG).show();
+                                                        Toast.makeText(getActivity(), "Sorry this offer is for new users only!!", Toast.LENGTH_LONG).show();
                                                     }
                                                 }
                                             });
@@ -319,6 +321,57 @@ public class form extends Fragment{
                             .show()
                             .setCancelable(false);
             }
+        }
+    }
+
+    class ReadCount extends AsyncTask<Void, Void, Void> {
+        int jIndex = 0;
+        String count;
+        FirebaseAuth mAuth;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Nullable
+        @Override
+        public Void doInBackground(Void... params) {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser user = mAuth.getCurrentUser();
+            JSONArray jsonArray = c.aapreneur.vpay.Resources.Configuration.count(user.getUid());
+            try {
+
+                if (jsonArray != null) {
+
+                    if (jsonArray.length() > 0) {
+
+                        int lenArray = jsonArray.length();
+                        if (lenArray > 0) {
+                            for (; jIndex < lenArray; jIndex++) {
+                                JSONObject innerObject = jsonArray.getJSONObject(jIndex);
+
+                                String id = innerObject.getString("id");
+                                count = innerObject.getString("count");
+                            }
+                        }
+                    }
+                } else {
+
+                }
+            } catch (JSONException je) {
+                //Log.i(Controller.TAG, "" + je.getLocalizedMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences("pref_data", MODE_PRIVATE).edit();
+            editor.putString("total", count);
+            editor.apply();
         }
     }
 
