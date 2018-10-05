@@ -44,8 +44,6 @@ public class bank_details extends AppCompatActivity {
     private TextInputLayout tilName,tilNumber,tilIFSC;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
-    SharedPreferences.Editor editor = getSharedPreferences("pref_data", MODE_PRIVATE).edit();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +85,8 @@ public class bank_details extends AppCompatActivity {
             buttonSkip.setVisibility(View.GONE);
             close.setVisibility(View.GONE);
         }
+        final SharedPreferences.Editor editor = getSharedPreferences("pref_data", MODE_PRIVATE).edit();
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

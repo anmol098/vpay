@@ -97,6 +97,7 @@ public class form extends Fragment{
             @Override
             public void onClick(View v) {
                 paytmCheck.setChecked(false);
+                creditCheck.setChecked(false);
                 Toast.makeText(getActivity(), "This feature is currently not available. Please check back later.", Toast.LENGTH_LONG).show();
             }
         });

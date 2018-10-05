@@ -24,8 +24,10 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -48,9 +50,7 @@ import java.util.List;
 import java.util.Map;
 
 import c.aapreneur.vpay.Resources.Configuration;
-import c.aapreneur.vpay.Resources.Upload;
-
-import static c.aapreneur.vpay.checkout.getOrderId;
+import c.aapreneur.vpay.app.utils.DualProgressView;
 
 public class FirstSignup extends AppCompatActivity {
 
@@ -58,6 +58,7 @@ public class FirstSignup extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextName;
+    DualProgressView progress;
     String email;
     String name;
     String id;
@@ -80,6 +81,7 @@ public class FirstSignup extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.email);
         editTextName = findViewById(R.id.name);
+        progress = findViewById(R.id.progress);
         id = user.getUid();
         mobile = user.getPhoneNumber();
         TextView textRefer = findViewById(R.id.referral);
@@ -229,33 +231,53 @@ public class FirstSignup extends AppCompatActivity {
 
     private void uploadFile(Uri data) {
         final StorageReference sRef = mStorageReference.child(Configuration.STORAGE_PATH_UPLOADS + user.getPhoneNumber() + ".jpg");
-        sRef.putFile(data)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @SuppressWarnings("VisibleForTests")
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        UploadTask uploadTask = sRef.putFile(data);
 
-                        Upload upload = new Upload(getOrderId(), taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
-                        mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
-                        fileTextUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                        Toast.makeText(getApplicationContext(), "Profile Image Updated Successfully", Toast.LENGTH_LONG).show();
-                        updateprofile();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @SuppressWarnings("VisibleForTests")
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        Toast.makeText(getApplicationContext(), progress+"% uploaded", Toast.LENGTH_LONG).show();
-                    }
-                });
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                progress.setVisibility(View.VISIBLE);
+                findViewById(R.id.register).setVisibility(View.GONE);
+                //double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                progress.setVisibility(View.GONE);
+                findViewById(R.id.register).setVisibility(View.VISIBLE);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Somehow,somewhere,something went wrong", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return sRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    fileTextUrl = "" + downloadUri;
+                    Toast.makeText(getApplicationContext(), "Profile Image Updated Successfully", Toast.LENGTH_LONG).show();
+                    updateprofile();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Somehow,somewhere,something went wrong", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 

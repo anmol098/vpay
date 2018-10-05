@@ -109,8 +109,6 @@ public class checkout extends AppCompatActivity {
 
                     String basePaytmUrl = mFirebaseRemoteConfig.getString("paytm");
                     paytmUrl = basePaytmUrl + "&amount=" + amt + "&comment=" + getOrderId();
-                    Toast.makeText(checkout.this, paytmUrl,
-                            Toast.LENGTH_LONG).show();
                     payuUrl=mFirebaseRemoteConfig.getString("payu");
                 } else {
                     Toast.makeText(checkout.this, "Fetch Failed",
